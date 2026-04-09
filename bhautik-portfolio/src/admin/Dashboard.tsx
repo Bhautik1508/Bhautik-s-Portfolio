@@ -15,7 +15,7 @@ const inter = (
   color: string,
   extra?: React.CSSProperties
 ): React.CSSProperties => ({
-  fontFamily: '"Inter", system-ui, sans-serif',
+  fontFamily: '"DM Sans", system-ui, sans-serif',
   fontSize: size,
   fontWeight: weight,
   color,
@@ -131,7 +131,22 @@ export default function AdminDashboard() {
       >
         <span style={serif(16, "#111110")}>Command Centre</span>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <button
+            onClick={() => navigate("/admin/resume")}
+            className="admin-logout-btn"
+            style={{
+              ...inter(11, 500, "#3D3D3A"),
+              border: "1px solid #E5E4E0",
+              padding: "5px 12px",
+              borderRadius: 5,
+              backgroundColor: "#fff",
+              cursor: "pointer",
+              transition: "border-color 0.15s",
+            }}
+          >
+            Resume
+          </button>
           <span
             data-testid="user-email"
             style={inter(11, 400, "#6B7280")}
@@ -187,7 +202,7 @@ export default function AdminDashboard() {
                 padding: "14px 18px",
               }}
             >
-              <div style={inter(22, 600, "#111110")}>{s.value}</div>
+              <div style={inter(22, 500, "#111110")}>{s.value}</div>
               <div
                 style={inter(10, 500, "#6B7280", {
                   textTransform: "uppercase",
@@ -210,7 +225,7 @@ export default function AdminDashboard() {
             marginBottom: 14,
           }}
         >
-          <span style={inter(13, 600, "#111110")}>All Projects</span>
+          <span style={inter(13, 500, "#111110")}>All Projects</span>
           <button
             onClick={() => navigate("/admin/projects/new")}
             data-testid="add-project-btn"
@@ -251,7 +266,7 @@ export default function AdminDashboard() {
               (col) => (
                 <span
                   key={col}
-                  style={inter(10, 600, "#6B7280", {
+                  style={inter(10, 500, "#6B7280", {
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
                   })}
@@ -354,7 +369,7 @@ export default function AdminDashboard() {
                 <div>
                   <span
                     style={{
-                      ...inter(9, 600, STATUS_STYLE[project.status]?.color ?? "#6B7280", {
+                      ...inter(9, 500, STATUS_STYLE[project.status]?.color ?? "#6B7280", {
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                       }),
@@ -403,7 +418,7 @@ export default function AdminDashboard() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      ...inter(11, 600, "#fff"),
+                      ...inter(11, 500, "#fff"),
                       padding: 0,
                     }}
                   >

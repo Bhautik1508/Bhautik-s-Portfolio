@@ -25,9 +25,9 @@ export default function StatCard({
     >
       <p
         style={{
-          fontFamily: '"Inter", system-ui, sans-serif',
+          fontFamily: '"DM Sans", system-ui, sans-serif',
           fontSize: 28,
-          fontWeight: 600,
+          fontWeight: 500,
           color: isDark ? "#ffffff" : "#111110",
           lineHeight: 1.2,
           margin: 0,
@@ -37,7 +37,7 @@ export default function StatCard({
       </p>
       <p
         style={{
-          fontFamily: '"Inter", system-ui, sans-serif',
+          fontFamily: '"DM Mono", "Courier New", monospace',
           fontSize: 11,
           fontWeight: 500,
           color: "#6B7280",

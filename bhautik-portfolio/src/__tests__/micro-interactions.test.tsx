@@ -523,14 +523,14 @@ describe("Final Pass — Design System Compliance", () => {
     expect(card.style.border).toBe("1px solid rgb(229, 228, 224)");
   });
 
-  it("Button fonts use Inter", () => {
+  it("Button fonts use DM Sans", () => {
     render(
       <BrowserRouter>
         <Button>Font Test</Button>
       </BrowserRouter>
     );
     const btn = screen.getByText("Font Test");
-    expect(btn.style.fontFamily).toContain("Inter");
+    expect(btn.style.fontFamily).toContain("DM Sans");
   });
 
   it("Button font weight is 500 (not 700 or 300)", () => {

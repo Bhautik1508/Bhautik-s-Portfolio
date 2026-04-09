@@ -5,7 +5,6 @@ import { db } from "../lib/firebase";
 import { OPEN_TO_WORK, SOCIAL_LINKS } from "../lib/config";
 import { Badge } from "../components/ui";
 import FadeUp from "../components/ui/FadeUp";
-import PageWrapper from "../components/layout/PageWrapper";
 
 /* ── Style helpers ── */
 
@@ -15,7 +14,7 @@ const inter = (
   color: string,
   extra?: React.CSSProperties
 ): React.CSSProperties => ({
-  fontFamily: '"Inter", system-ui, sans-serif',
+  fontFamily: '"DM Sans", system-ui, sans-serif',
   fontSize: size,
   fontWeight: weight,
   color,
@@ -162,7 +161,7 @@ export default function Contact() {
   };
 
   return (
-    <PageWrapper>
+    <>
     <section
       style={{
         maxWidth: 720,
@@ -459,11 +458,16 @@ export default function Contact() {
               }}
             >
               <div
-                style={inter(11, 600, "#6B7280", {
+                style={{
+                  fontFamily: '"DM Mono", "Courier New", monospace',
+                  fontSize: 11,
+                  fontWeight: 500,
+                  color: "#6B7280",
+                  margin: 0,
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
                   marginBottom: 16,
-                })}
+                }}
               >
                 Direct Links
               </div>
@@ -585,6 +589,6 @@ export default function Contact() {
         }
       `}</style>
     </section>
-    </PageWrapper>
+    </>
   );
 }

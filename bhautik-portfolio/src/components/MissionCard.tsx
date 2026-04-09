@@ -8,7 +8,7 @@ const inter = (
   color: string,
   extra?: React.CSSProperties
 ): React.CSSProperties => ({
-  fontFamily: '"Inter", system-ui, sans-serif',
+  fontFamily: '"DM Sans", system-ui, sans-serif',
   fontSize: size,
   fontWeight: weight,
   color,
@@ -56,17 +56,41 @@ const CATEGORY_EMOJI: Record<string, string> = {
 
 /* ── Component ── */
 
+export type CardVariant = "hero" | "medium" | "small";
+
 interface MissionCardProps {
   project: Project;
   featured?: boolean;
+  variant?: CardVariant;
 }
 
 export default function MissionCard({
   project,
   featured = false,
+  variant = "medium",
 }: MissionCardProps) {
   const status = STATUS_CONFIG[project.status];
   const hasLink = project.caseStudyUrl || project.liveUrl;
+
+  const isHero = variant === "hero";
+  const isSmall = variant === "small";
+
+  /* Title sizes per variant */
+  const titleSize = isHero ? 22 : isSmall ? 15 : 18;
+
+  /* Metric / tag limits */
+  const metricsToShow = isHero
+    ? project.metrics
+    : isSmall
+      ? project.metrics.slice(0, 2)
+      : project.metrics;
+  const tagsToShow = isSmall
+    ? project.tags.slice(0, 2)
+    : project.tags;
+
+  /* Metric font sizes */
+  const metricValSize = isSmall ? 14 : 17;
+  const metricLabelSize = isSmall ? 8 : 9;
 
   /* ── Clickable wrapper (whole card) ── */
   const Wrapper = hasLink ? "a" : "div";
@@ -96,13 +120,15 @@ export default function MissionCard({
         background: "#fff",
         border: "1px solid #E5E4E0",
         borderRadius: 12,
-        padding: 22,
+        padding: isSmall ? 16 : 22,
         cursor: hasLink ? "pointer" : "default",
         transition: "border-color 0.2s, box-shadow 0.2s",
-        ...(featured
+        height: "100%",
+        boxSizing: "border-box",
+        ...(isHero
           ? {
               display: "grid",
-              gridTemplateColumns: "1fr auto",
+              gridTemplateColumns: "1fr 240px",
               gap: 24,
               alignItems: "start",
             }
@@ -115,7 +141,7 @@ export default function MissionCard({
         <span
           data-testid="status-badge"
           style={{
-            ...inter(9, 600, status.color, {
+            ...inter(9, 500, status.color, {
               textTransform: "uppercase",
               letterSpacing: "0.06em",
             }),
@@ -135,45 +161,56 @@ export default function MissionCard({
         {/* 2. Title */}
         <h3
           className="card-title"
-          style={serif(featured ? 22 : 18, "#111110", {
-            marginTop: 10,
-            marginBottom: 6,
+          style={serif(titleSize, "#111110", {
+            marginTop: isSmall ? 8 : 10,
+            marginBottom: isSmall ? 4 : 6,
             transition: "color 0.2s",
           })}
         >
           {project.title}
         </h3>
 
-        {/* 3. Tagline */}
-        <p
-          style={inter(13, 400, "#6B7280", {
-            lineHeight: 1.65,
-            marginBottom: 16,
-          })}
-        >
-          {project.tagline}
-        </p>
+        {/* 3. Tagline — hidden on small cards */}
+        {!isSmall && (
+          <p
+            style={inter(13, 400, "#6B7280", {
+              lineHeight: 1.65,
+              marginBottom: 16,
+            })}
+          >
+            {project.tagline}
+          </p>
+        )}
 
         {/* 4. Metrics row */}
-        {project.metrics.length > 0 && (
+        {metricsToShow.length > 0 && (
           <div
             style={{
               display: "flex",
-              gap: 20,
-              marginBottom: 14,
+              gap: isSmall ? 14 : 20,
+              marginBottom: isSmall ? 10 : 14,
             }}
           >
-            {project.metrics.map((m) => (
+            {metricsToShow.map((m) => (
               <div key={m.label}>
-                <div style={inter(17, 600, "#111110", { lineHeight: 1 })}>
+                <div
+                  style={inter(metricValSize, 500, "#111110", {
+                    lineHeight: 1,
+                  })}
+                >
                   {m.value}
                 </div>
                 <div
-                  style={inter(9, 500, "#6B7280", {
+                  style={{
+                    fontFamily: '"DM Mono", "Courier New", monospace',
+                    fontSize: metricLabelSize,
+                    fontWeight: 500,
+                    color: "#6B7280",
+                    margin: 0,
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
                     marginTop: 3,
-                  })}
+                  }}
                 >
                   {m.label}
                 </div>
@@ -183,16 +220,16 @@ export default function MissionCard({
         )}
 
         {/* 5. Tags row */}
-        {project.tags.length > 0 && (
+        {tagsToShow.length > 0 && (
           <div
             style={{
               display: "flex",
               gap: 5,
               flexWrap: "wrap",
-              marginBottom: 16,
+              marginBottom: isSmall ? 10 : 16,
             }}
           >
-            {project.tags.map((tag, i) => (
+            {tagsToShow.map((tag, i) => (
               <span
                 key={tag}
                 style={{
@@ -221,7 +258,7 @@ export default function MissionCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="case-study-link link-animated"
-                style={inter(12, 500, "#2D6A4F", {
+                style={inter(isSmall ? 11 : 12, 500, "#2D6A4F", {
                   textDecoration: "none",
                 })}
               >
@@ -234,7 +271,7 @@ export default function MissionCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="live-site-link link-animated"
-                style={inter(12, 400, "#6B7280", {
+                style={inter(isSmall ? 11 : 12, 400, "#6B7280", {
                   textDecoration: "none",
                 })}
               >
@@ -245,13 +282,12 @@ export default function MissionCard({
         )}
       </div>
 
-      {/* ── Right side: image / emoji placeholder (featured only) ── */}
-      {featured && (
+      {/* ── Right side: large emoji panel (hero only) ── */}
+      {isHero && (
         <div
           data-testid="featured-image"
+          className="hero-emoji-panel"
           style={{
-            width: 140,
-            height: 90,
             backgroundColor: "#F9F8F6",
             border: "1px solid #E5E4E0",
             borderRadius: 8,
@@ -260,6 +296,8 @@ export default function MissionCard({
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
+            alignSelf: "stretch",
+            minHeight: 120,
           }}
         >
           {project.imageUrl ? (
@@ -269,7 +307,7 @@ export default function MissionCard({
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <span style={{ fontSize: 28 }}>
+            <span style={{ fontSize: 48 }}>
               {CATEGORY_EMOJI[project.category] ?? "🎯"}
             </span>
           )}

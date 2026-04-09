@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Badge } from "../components/ui";
 import { RESUME_URL } from "../lib/config";
-import PageWrapper from "../components/layout/PageWrapper";
+import { useResume } from "../hooks/useResume";
+import type { WorkEntry, EducationEntry } from "../hooks/useResume";
 
 /* ────────────────────────────────────────────────────────
    Animation variants
@@ -35,54 +36,6 @@ const cardFadeUp = {
 };
 
 /* ────────────────────────────────────────────────────────
-   Data
-   ──────────────────────────────────────────────────────── */
-
-interface TimelineEntry {
-  company: string;
-  turnRange: string;
-  role: string;
-  bullets: string[];
-  tags: string[];
-}
-
-const EXPERIENCE: TimelineEntry[] = [
-  {
-    company: "Standard Chartered Bank",
-    turnRange: "2022–Present",
-    role: "Product Manager",
-    bullets: [
-      "Led 0→1 build of payments feature serving 200K+ customers, ₹2Cr+ revenue impact",
-      "Reduced onboarding drop-off 34% via iterative UX improvements and A/B testing",
-      "Partnered with Risk & Compliance to ship KYC automation in 3 regulated markets",
-      "Owned product roadmap across 4 squads; ran weekly sprint reviews and stakeholder demos",
-    ],
-    tags: ["Payments", "KYC", "Fintech", "0→1"],
-  },
-  {
-    company: "Addivity (Co-founded)",
-    turnRange: "2020–2022",
-    role: "Co-founder & Product Lead",
-    bullets: [
-      "Co-founded edtech startup — defined product vision, roadmap, and GTM strategy",
-      "Shipped MVP in 8 weeks; grew to 1,200 active learners in first semester",
-      "Raised seed funding; led team of 6 across engineering and design",
-    ],
-    tags: ["0→1", "EdTech", "Startup", "Fundraising"],
-  },
-  {
-    company: "Prodapt Solutions",
-    turnRange: "2019–2020",
-    role: "Business Analyst",
-    bullets: [
-      "Delivered 3 process automation initiatives saving 1,200 hours/quarter",
-      "Built dashboards in Tableau for senior stakeholders across 2 BUs",
-    ],
-    tags: ["Analytics", "Automation", "Tableau"],
-  },
-];
-
-/* ────────────────────────────────────────────────────────
    Shared inline style helpers
    ──────────────────────────────────────────────────────── */
 
@@ -92,7 +45,7 @@ const inter = (
   color: string,
   extra?: React.CSSProperties
 ): React.CSSProperties => ({
-  fontFamily: '"Inter", system-ui, sans-serif',
+  fontFamily: '"DM Sans", system-ui, sans-serif',
   fontSize: size,
   fontWeight: weight,
   color,
@@ -114,6 +67,26 @@ const serif = (
 });
 
 /* ────────────────────────────────────────────────────────
+   Skeleton shimmer
+   ──────────────────────────────────────────────────────── */
+
+function SkeletonBlock({ height = 120 }: { height?: number }) {
+  return (
+    <div
+      className="skeleton-card"
+      style={{
+        borderRadius: 10,
+        border: "1px solid #E5E4E0",
+        height,
+        backgroundImage:
+          "linear-gradient(90deg, #F9F8F6 25%, #F0EFED 50%, #F9F8F6 75%)",
+        backgroundSize: "200% 100%",
+      }}
+    />
+  );
+}
+
+/* ────────────────────────────────────────────────────────
    Timeline Item
    ──────────────────────────────────────────────────────── */
 
@@ -121,7 +94,7 @@ function TimelineItem({
   entry,
   index,
 }: {
-  entry: TimelineEntry;
+  entry: WorkEntry;
   index: number;
 }) {
   return (
@@ -158,13 +131,19 @@ function TimelineItem({
           alignItems: "center",
           gap: 10,
           marginBottom: 4,
+          flexWrap: "wrap",
         }}
       >
         <span
-          style={inter(11, 600, "#2D6A4F", {
+          style={{
+            fontFamily: '"DM Mono", "Courier New", monospace',
+            fontSize: 11,
+            fontWeight: 500,
+            color: "#2D6A4F",
+            margin: 0,
             textTransform: "uppercase",
             letterSpacing: "0.05em",
-          })}
+          }}
         >
           {entry.company}
         </span>
@@ -178,9 +157,19 @@ function TimelineItem({
             lineHeight: 1.4,
           }}
         >
-          Turn {entry.turnRange}
+          {entry.turnLabel}
         </span>
       </div>
+
+      {/* Location & Period */}
+      <p
+        style={{
+          ...inter(11, 400, "#6B7280"),
+          marginBottom: 4,
+        }}
+      >
+        {entry.location} · {entry.period}
+      </p>
 
       {/* Role */}
       <h3 style={serif(19, "#111110", { marginBottom: 8, lineHeight: 1.25 })}>
@@ -240,12 +229,85 @@ function TimelineItem({
 }
 
 /* ────────────────────────────────────────────────────────
+   Education Card
+   ──────────────────────────────────────────────────────── */
+
+function EducationCard({
+  entry,
+  index,
+}: {
+  entry: EducationEntry;
+  index: number;
+}) {
+  const isFeatured = entry.featured;
+  return (
+    <motion.div
+      variants={cardFadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+      custom={index}
+      style={{
+        border: isFeatured ? "1.5px solid #2D6A4F" : "1px solid #E5E4E0",
+        backgroundColor: isFeatured ? "#EAF3EE" : "#F9F8F6",
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
+      <p
+        style={{
+          fontFamily: '"DM Mono", "Courier New", monospace',
+          fontSize: 10,
+          fontWeight: 500,
+          color: isFeatured ? "#2D6A4F" : "#6B7280",
+          margin: 0,
+          textTransform: "uppercase",
+          letterSpacing: "0.06em",
+          marginBottom: 6,
+        }}
+      >
+        {entry.institution}
+      </p>
+      <h3
+        style={serif(17, "#111110", {
+          marginBottom: 6,
+          lineHeight: 1.25,
+        })}
+      >
+        {entry.degree}
+      </h3>
+      <p style={inter(12, 400, "#6B7280", { marginBottom: isFeatured ? 12 : 0 })}>
+        {entry.period}
+      </p>
+      {isFeatured && (
+        <span
+          style={{
+            ...inter(10, 500, "#2D6A4F"),
+            backgroundColor: "#ffffff",
+            border: "1px solid #2D6A4F",
+            padding: "3px 8px",
+            borderRadius: 4,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+          }}
+        >
+          🏆 {entry.institution}
+        </span>
+      )}
+    </motion.div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────
    Resume page
    ──────────────────────────────────────────────────────── */
 
 export default function Resume() {
+  const { workExperience, education, loading } = useResume();
+
   return (
-    <PageWrapper>
+    <>
     <section
       style={{
         maxWidth: 680,
@@ -277,33 +339,44 @@ export default function Resume() {
         Experience
       </motion.h1>
 
-      {/* Timeline container */}
-      <div
-        style={{
-          marginTop: 32,
-          position: "relative",
-        }}
-      >
-        {/* Vertical accent line */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 8,
-            bottom: 8,
-            width: 1,
-            backgroundColor: "#E5E4E0",
-          }}
-        />
+      {/* Loading skeleton */}
+      {loading && (
+        <div style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 16 }}>
+          <SkeletonBlock height={180} />
+          <SkeletonBlock height={140} />
+          <SkeletonBlock height={120} />
+        </div>
+      )}
 
-        {EXPERIENCE.map((entry, i) => (
-          <TimelineItem key={entry.company} entry={entry} index={i} />
-        ))}
-      </div>
+      {/* Timeline container */}
+      {!loading && workExperience.length > 0 && (
+        <div
+          style={{
+            marginTop: 32,
+            position: "relative",
+          }}
+        >
+          {/* Vertical accent line */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 8,
+              bottom: 8,
+              width: 1,
+              backgroundColor: "#E5E4E0",
+            }}
+          />
+
+          {workExperience.map((entry, i) => (
+            <TimelineItem key={entry.company} entry={entry} index={i} />
+          ))}
+        </div>
+      )}
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 2 — EDUCATION & CERTIFICATIONS
+          SECTION 2 — EDUCATION
           ═══════════════════════════════════════════════════ */}
 
       <div
@@ -335,113 +408,38 @@ export default function Resume() {
           Education
         </motion.h2>
 
-        {/* Two-column grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 12,
-            marginTop: 24,
-          }}
-          className="edu-grid"
-        >
-          {/* Left — MBA card */}
-          <motion.div
-            variants={cardFadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            custom={0}
+        {/* Loading skeleton */}
+        {loading && (
+          <div
             style={{
-              border: "1.5px solid #2D6A4F",
-              backgroundColor: "#EAF3EE",
-              borderRadius: 10,
-              padding: 20,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+              marginTop: 24,
             }}
+            className="edu-grid"
           >
-            <p
-              style={inter(10, 600, "#2D6A4F", {
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                marginBottom: 6,
-              })}
-            >
-              IIT Delhi
-            </p>
-            <h3
-              style={serif(17, "#111110", {
-                marginBottom: 6,
-                lineHeight: 1.25,
-              })}
-            >
-              Master of Business Administration
-            </h3>
-            <p style={inter(12, 400, "#6B7280", { marginBottom: 12 })}>
-              2019 – 2021
-            </p>
-            <span
-              style={{
-                ...inter(10, 500, "#2D6A4F"),
-                backgroundColor: "#ffffff",
-                border: "1px solid #2D6A4F",
-                padding: "3px 8px",
-                borderRadius: 4,
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 4,
-              }}
-            >
-              🏆 IIT Delhi
-            </span>
-          </motion.div>
+            <SkeletonBlock height={140} />
+            <SkeletonBlock height={140} />
+          </div>
+        )}
 
-          {/* Right — Certifications card */}
-          <motion.div
-            variants={cardFadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            custom={1}
+        {/* Two-column grid */}
+        {!loading && education.length > 0 && (
+          <div
             style={{
-              border: "1px solid #E5E4E0",
-              backgroundColor: "#F9F8F6",
-              borderRadius: 10,
-              padding: 20,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+              marginTop: 24,
             }}
+            className="edu-grid"
           >
-            <p
-              style={inter(10, 600, "#6B7280", {
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                marginBottom: 10,
-              })}
-            >
-              Certifications
-            </p>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: 0,
-              }}
-            >
-              {[
-                "[Add certification 1]",
-                "[Add certification 2]",
-                "[Add certification 3]",
-              ].map((cert, i) => (
-                <li
-                  key={i}
-                  style={inter(12, 400, "#3D3D3A", {
-                    lineHeight: 1.9,
-                  })}
-                >
-                  · {cert}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
+            {education.map((entry, i) => (
+              <EducationCard key={entry.institution} entry={entry} index={i} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ═══════════════════════════════════════════════════
@@ -483,7 +481,7 @@ export default function Resume() {
               display: "inline-flex",
               alignItems: "center",
               gap: 6,
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"DM Sans", system-ui, sans-serif',
               fontSize: 14,
               fontWeight: 500,
               padding: "10px 22px",
@@ -511,8 +509,15 @@ export default function Resume() {
         </motion.div>
       </div>
 
-      {/* ── Responsive overrides ── */}
+      {/* ── CSS ── */}
       <style>{`
+        @keyframes shimmer {
+          0%   { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        .skeleton-card {
+          animation: shimmer 1.4s ease-in-out infinite;
+        }
         @media (max-width: 600px) {
           .edu-grid {
             grid-template-columns: 1fr !important;
@@ -520,6 +525,6 @@ export default function Resume() {
         }
       `}</style>
     </section>
-    </PageWrapper>
+    </>
   );
 }

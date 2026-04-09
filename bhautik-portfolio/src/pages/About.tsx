@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Badge } from "../components/ui";
-import PageWrapper from "../components/layout/PageWrapper";
 
 /* ────────────────────────────────────────────────────────
    Animation helpers
@@ -31,11 +30,13 @@ const staggerPanel = {
 const TRAITS = ["Strategic Thinker", "Data-Driven", "0→1 Builder"];
 
 const SKILL_PANELS = [
-  { icon: "📊", title: "Data & Analytics", tags: ["SQL", "Tableau", "Hadoop", "Excel"] },
-  { icon: "🎨", title: "Design & Prototyping", tags: ["Figma", "Balsamiq", "Wireframing", "User Research"] },
-  { icon: "⚙", title: "Technical", tags: ["Python", "REST APIs", "Agile/Scrum", "JIRA", "Git"] },
-  { icon: "💡", title: "Product", tags: ["Roadmapping", "PRD Writing", "A/B Testing", "OKRs", "Stakeholder Mgmt"] },
+  { icon: "📊", title: "Data & Analytics", tags: ["SQL", "Tableau", "Microsoft Office", "Hadoop"] },
+  { icon: "🎨", title: "Design & Prototyping", tags: ["Figma", "JIRA", "Confluence", "Wireframing"] },
+  { icon: "⚙", title: "Product Management", tags: ["Roadmaps", "Prioritization", "Agile", "Scrum", "Stakeholder Engagement"] },
+  { icon: "💡", title: "Domain", tags: ["Credit Risk Management", "Regulatory Reporting", "Go-to-Market", "User Research"] },
 ];
+
+const DOMAIN_TAGS = ["Nostro", "Risk Appetite", "Large Exposure", "Regulatory", "Hadoop"];
 
 const GAMES = ["Wingspan", "Gloomhaven", "Dune Imperium", "Terraforming Mars"];
 
@@ -48,7 +49,7 @@ function SkillTag({ children }: { children: string }) {
     <span
       style={{
         display: "inline-block",
-        fontFamily: '"Inter", system-ui, sans-serif',
+        fontFamily: '"DM Sans", system-ui, sans-serif',
         fontSize: 10,
         fontWeight: 500,
         color: "#6B7280",
@@ -81,7 +82,7 @@ function SkillTag({ children }: { children: string }) {
 
 export default function About() {
   return (
-    <PageWrapper>
+    <>
     <section
       style={{
         maxWidth: 720,
@@ -138,7 +139,7 @@ export default function About() {
         <div>
           <p
             style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"DM Sans", system-ui, sans-serif',
               fontSize: 14,
               color: "#3D3D3A",
               lineHeight: 1.8,
@@ -152,7 +153,7 @@ export default function About() {
           </p>
           <p
             style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"DM Sans", system-ui, sans-serif',
               fontSize: 14,
               color: "#3D3D3A",
               lineHeight: 1.8,
@@ -218,7 +219,7 @@ export default function About() {
           {/* Title */}
           <p
             style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"DM Sans", system-ui, sans-serif',
               fontSize: 11,
               color: "#6B7280",
               margin: "0 0 16px 0",
@@ -242,7 +243,7 @@ export default function About() {
                   display: "block",
                   backgroundColor: "#EAF3EE",
                   color: "#2D6A4F",
-                  fontFamily: '"Inter", system-ui, sans-serif',
+                  fontFamily: '"DM Sans", system-ui, sans-serif',
                   fontSize: 11,
                   fontWeight: 500,
                   borderRadius: 4,
@@ -294,7 +295,7 @@ export default function About() {
 
         <p
           style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"DM Sans", system-ui, sans-serif',
             fontSize: 14,
             color: "#6B7280",
             margin: 0,
@@ -342,7 +343,7 @@ export default function About() {
               <span style={{ fontSize: 14, lineHeight: 1 }}>{panel.icon}</span>
               <span
                 style={{
-                  fontFamily: '"Inter", system-ui, sans-serif',
+                  fontFamily: '"DM Mono", "Courier New", monospace',
                   fontSize: 10,
                   fontWeight: 500,
                   letterSpacing: "0.08em",
@@ -370,6 +371,81 @@ export default function About() {
         ))}
       </div>
 
+      {/* Domain Expertise highlight band */}
+      <motion.div
+        variants={staggerPanel}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-40px" }}
+        custom={4}
+        style={{
+          marginTop: 16,
+          background: "#F9F8F6",
+          border: "1px solid #E5E4E0",
+          borderRadius: 10,
+          padding: 18,
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: 24,
+          alignItems: "center",
+        }}
+        className="domain-band"
+      >
+        {/* Left side */}
+        <div>
+          <p
+            style={{
+              fontFamily: '"DM Mono", "Courier New", monospace',
+              fontSize: 10,
+              fontWeight: 500,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#6B7280",
+              margin: "0 0 4px 0",
+            }}
+          >
+            Core Domain
+          </p>
+          <h3
+            style={{
+              fontFamily: '"Instrument Serif", Georgia, serif',
+              fontSize: 18,
+              color: "#111110",
+              lineHeight: 1.15,
+              margin: "0 0 6px 0",
+            }}
+          >
+            Credit Risk Management
+          </h3>
+          <p
+            style={{
+              fontFamily: '"DM Sans", system-ui, sans-serif',
+              fontSize: 13,
+              color: "#6B7280",
+              lineHeight: 1.6,
+              margin: 0,
+            }}
+          >
+            5+ years specialising in credit risk within banking — Nostro products, Risk Appetite
+            frameworks, Large Exposure monitoring, and regulatory reporting for SCB.
+          </p>
+        </div>
+
+        {/* Right side — inline tags */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 6,
+            justifyContent: "flex-end",
+          }}
+        >
+          {DOMAIN_TAGS.map((tag) => (
+            <SkillTag key={tag}>{tag}</SkillTag>
+          ))}
+        </div>
+      </motion.div>
+
       {/* ═══════════════════════════════════════════════════
           SECTION 3 — "OFF THE CLOCK"
           ═══════════════════════════════════════════════════ */}
@@ -395,7 +471,7 @@ export default function About() {
 
         <p
           style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"DM Sans", system-ui, sans-serif',
             fontSize: 13,
             color: "#6B7280",
             margin: "0 0 12px 0",
@@ -420,7 +496,7 @@ export default function About() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                fontFamily: '"Inter", system-ui, sans-serif',
+                fontFamily: '"DM Sans", system-ui, sans-serif',
                 fontSize: 11,
                 fontWeight: 500,
                 color: "#6B7280",
@@ -446,9 +522,12 @@ export default function About() {
           .skills-grid {
             grid-template-columns: 1fr !important;
           }
+          .domain-band {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </section>
-    </PageWrapper>
+    </>
   );
 }

@@ -18,7 +18,8 @@ const config: Config = {
       },
       fontFamily: {
         display: ['"Instrument Serif"', "Georgia", "serif"],
-        body: ['"Inter"', "system-ui", "sans-serif"],
+        body: ['"DM Sans"', "system-ui", "sans-serif"],
+        mono: ['"DM Mono"', '"Courier New"', "monospace"],
       },
     },
   },

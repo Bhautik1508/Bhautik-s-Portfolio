@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
 import { Badge } from "../components/ui";
 import MissionCard from "../components/MissionCard";
-import PageWrapper from "../components/layout/PageWrapper";
+import type { CardVariant } from "../components/MissionCard";
 
 /* ── Style helpers ── */
 
@@ -13,7 +13,7 @@ const inter = (
   color: string,
   extra?: React.CSSProperties
 ): React.CSSProperties => ({
-  fontFamily: '"Inter", system-ui, sans-serif',
+  fontFamily: '"DM Sans", system-ui, sans-serif',
   fontSize: size,
   fontWeight: weight,
   color,
@@ -66,13 +66,35 @@ const cardVariants = {
   },
 };
 
+/* ── Bento size helpers ── */
+
+/**
+ * Determine the card variant and grid-column span class
+ * based on index in the filtered array and featured flag.
+ */
+function getCardLayout(
+  index: number,
+  featured: boolean
+): { variant: CardVariant; span: number; minHeight: number } {
+  if (index === 0 && featured) {
+    return { variant: "hero", span: 6, minHeight: 160 };
+  }
+  if (index <= 2) {
+    // index 0 (non-featured), 1, 2 → medium
+    return { variant: "medium", span: 3, minHeight: 200 };
+  }
+  // index 3+ → small
+  return { variant: "small", span: 2, minHeight: 180 };
+}
+
 /* ── Skeleton shimmer ── */
 
-function SkeletonCard() {
+function SkeletonCard({ span = 3 }: { span?: number }) {
   return (
     <div
       className="skeleton-card"
       style={{
+        gridColumn: `span ${span}`,
         borderRadius: 12,
         border: "1px solid #E5E4E0",
         height: 180,
@@ -105,10 +127,10 @@ export default function Projects() {
     });
 
   return (
-    <PageWrapper>
+    <>
     <section
       style={{
-        maxWidth: 720,
+        maxWidth: 780,
         margin: "0 auto",
         padding: "72px 24px",
       }}
@@ -220,50 +242,68 @@ export default function Projects() {
       {loading && !error && (
         <div
           data-testid="loading-skeleton"
+          className="bento-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 14,
+            gridTemplateColumns: "repeat(6, 1fr)",
+            gap: 12,
           }}
         >
-          {[1, 2, 3, 4].map((i) => (
-            <SkeletonCard key={i} />
-          ))}
+          <SkeletonCard span={6} />
+          <SkeletonCard span={3} />
+          <SkeletonCard span={3} />
+          <SkeletonCard span={2} />
+          <SkeletonCard span={2} />
+          <SkeletonCard span={2} />
         </div>
       )}
 
-      {/* ── Projects grid ── */}
+      {/* ── Projects bento grid ── */}
       {!loading && !error && filtered.length > 0 && (
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            className="projects-grid"
-            variants={gridVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 14,
-            }}
-          >
-            {filtered.map((project) => (
-              <motion.div
-                key={project.id}
-                variants={cardVariants}
-                style={
-                  project.featured ? { gridColumn: "1 / -1" } : undefined
-                }
-              >
-                <MissionCard
-                  project={project}
-                  featured={project.featured}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+        <LayoutGroup>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeFilter}
+              className="bento-grid"
+              variants={gridVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(6, 1fr)",
+                gap: 12,
+              }}
+            >
+              {filtered.map((project, index) => {
+                const { variant, span, minHeight } = getCardLayout(
+                  index,
+                  project.featured
+                );
+
+                return (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    layoutId={project.id}
+                    variants={cardVariants}
+                    className={`card-${variant}`}
+                    style={{
+                      gridColumn: `span ${span}`,
+                      minHeight,
+                    }}
+                  >
+                    <MissionCard
+                      project={project}
+                      featured={variant === "hero"}
+                      variant={variant}
+                    />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </LayoutGroup>
       )}
 
       {/* ── Empty state ── */}
@@ -302,9 +342,32 @@ export default function Projects() {
         .live-site-link:hover {
           color: #111110 !important;
         }
-        @media (max-width: 639px) {
-          .projects-grid {
+        /* Tablet: all cards full-width */
+        @media (max-width: 767px) {
+          .bento-grid .card-hero,
+          .bento-grid .card-medium,
+          .bento-grid .card-small {
+            grid-column: span 6 !important;
+          }
+          .hero-emoji-panel {
+            display: none !important;
+          }
+          .mission-card {
             grid-template-columns: 1fr !important;
+          }
+        }
+        /* Mobile: same as tablet */
+        @media (max-width: 639px) {
+          .bento-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .bento-grid .card-hero,
+          .bento-grid .card-medium,
+          .bento-grid .card-small {
+            grid-column: span 1 !important;
+          }
+          [data-testid="loading-skeleton"] .skeleton-card {
+            grid-column: span 1 !important;
           }
           [data-testid="loading-skeleton"] {
             grid-template-columns: 1fr !important;
@@ -312,6 +375,6 @@ export default function Projects() {
         }
       `}</style>
     </section>
-    </PageWrapper>
+    </>
   );
 }

@@ -35,10 +35,10 @@ export default function Badge({
       style={{
         display: "inline-flex",
         alignItems: "center",
-        fontFamily: '"Inter", system-ui, sans-serif',
+        fontFamily: '"DM Mono", "Courier New", monospace',
         fontSize: 11,
         fontWeight: 500,
-        letterSpacing: "0.04em",
+        letterSpacing: "0.1em",
         textTransform: "uppercase",
         padding: "3px 8px",
         borderRadius: 4,

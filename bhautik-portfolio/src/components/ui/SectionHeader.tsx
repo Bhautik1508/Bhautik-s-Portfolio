@@ -44,7 +44,7 @@ export default function SectionHeader({
       {subtext && (
         <p
           style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"DM Sans", system-ui, sans-serif',
             fontSize: 16,
             color: "#6B7280",
             lineHeight: 1.7,

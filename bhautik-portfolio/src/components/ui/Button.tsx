@@ -74,7 +74,7 @@ export default function Button({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: '"Inter", system-ui, sans-serif',
+    fontFamily: '"DM Sans", system-ui, sans-serif',
     fontWeight: 500,
     borderRadius: 6,
     cursor: disabled ? "not-allowed" : "pointer",

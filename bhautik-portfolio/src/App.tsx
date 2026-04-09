@@ -15,6 +15,10 @@ import Contact from "./pages/Contact";
 import AdminLogin from "./admin/Login";
 import AdminDashboard from "./admin/Dashboard";
 import ProjectForm from "./admin/ProjectForm";
+import ResumeEditor from "./admin/ResumeEditor";
+
+// Seed scripts — attach to window in dev mode
+import "./lib/seedResume";
 
 function App() {
   return (
@@ -38,6 +42,7 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/projects/new" element={<ProjectForm />} />
             <Route path="/admin/projects/:id" element={<ProjectForm />} />
+            <Route path="/admin/resume" element={<ResumeEditor />} />
           </Route>
         </Routes>
 
@@ -49,7 +54,7 @@ function App() {
               color: "#F9F8F6",
               border: "1px solid #E5E4E0",
               borderRadius: "0.5rem",
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"DM Sans", system-ui, sans-serif',
               fontSize: "0.8rem",
             },
             success: {

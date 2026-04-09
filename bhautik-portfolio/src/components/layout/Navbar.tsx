@@ -80,7 +80,7 @@ export default function Navbar() {
                 to={to}
                 end={to === "/"}
                 className={({ isActive }) =>
-                  `relative pb-[2px] text-[14px] font-medium transition-colors duration-150 ${
+                  `relative pb-[2px] font-body text-[13px] font-medium transition-colors duration-150 ${
                     isActive ? "text-[#111110]" : "text-[#6B7280] hover:text-[#111110]"
                   }`
                 }
