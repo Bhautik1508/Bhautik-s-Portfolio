@@ -2,148 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* ── Global defaults ── */
-  html {
-    scroll-behavior: smooth;
-    font-family: 'DM Sans', system-ui, sans-serif;
-  }
-
-  body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 0.875rem; /* 14px default */
-    color: #3d3d3a;
-    background-color: #ffffff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Desktop body text bump */
-  @media (min-width: 640px) {
-    body {
-      font-size: 0.9375rem; /* 15px */
-    }
-  }
-
-  /* ── Heading typography with responsive clamp ── */
-  h1,
-  h2,
-  h3 {
-    font-family: 'Instrument Serif', Georgia, serif;
-    color: #111110;
-  }
-
-  h1 {
-    font-size: clamp(36px, 6vw, 64px);
-  }
-
-  h2 {
-    font-size: clamp(28px, 4vw, 40px);
-  }
-
-  /* ── Selection ── */
-  ::selection {
-    background: #eaf3ee;
-    color: #2d6a4f;
-  }
-
-  /* ── Global input focus ring (#4) ── */
-  input:focus,
-  textarea:focus,
-  select:focus {
-    outline: none;
-    border-color: #2d6a4f !important;
-    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.08);
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-
-  /* ── Touch targets — minimum 44px ── */
-  button,
-  a,
-  select,
-  [role="button"] {
-    min-height: 44px;
-  }
-
-  /* Exceptions for inline and small decorative elements */
-  .link-animated,
-  .footer__nav-link,
-  .footer__social-btn,
-  span > a {
-    min-height: auto;
-  }
-
-  /* ── Scrollbar (4px, minimal) ── */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #e5e4e0;
-    border-radius: 2px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #c4c3bf;
-  }
-
-  /* Firefox scrollbar */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #e5e4e0 transparent;
-  }
+/* ── Global base styles ── */
+html {
+  scroll-behavior: smooth;
 }
 
-/* ── Font utility spacing (STEP 5) ── */
-.font-display {
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #2B2B2B;
+  background-color: #F7F5F0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.font-body {
-  letter-spacing: -0.01em;
-  line-height: 1.7;
+/* ── Grain / Noise texture overlay ──
+   Uses a tiny inline SVG as a CSS background to create
+   a subtle paper-like grain across the entire page. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
-.font-mono {
-  letter-spacing: 0.08em;
+/* ── Selection highlight ── */
+::selection {
+  background-color: rgba(74, 109, 92, 0.15);
+  color: #1A1A1A;
 }
 
-/* ── Link underline animation utility (#3) ── */
-.link-animated {
-  position: relative;
-  text-decoration: none;
-  color: #2d6a4f;
+/* ── Scrollbar (subtle) ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E0DDD5;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4C0B7;
 }
 
-.link-animated::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 0;
-  height: 1px;
-  background: #2d6a4f;
-  transition: width 0.2s ease;
+/* ── Focus ring utility ── */
+*:focus-visible {
+  outline: 2px solid #4A6D5C;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
-.link-animated:hover::after {
-  width: 100%;
-}
-
-/* ── Scroll bounce keyframes ── */
-@keyframes scrollBounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-
-/* ── Mission card hover → title color (#5) ── */
-.mission-card:hover .card-title {
-  color: #2d6a4f !important;
+/* ── Page transition wrapper ── */
+.page-wrapper {
+  min-height: calc(100vh - 72px);
 }

@@ -8,26 +8,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        void: "#111110",
-        ink: "#3D3D3A",
-        muted: "#6B7280",
-        border: "#E5E4E0",
-        surface: "#F9F8F6",
-        accent: "#2D6A4F",
-        "accent-light": "#EAF3EE",
-        /* Board-game design system */
-        "board-base": "#F9F7F3",
-        "board-ink": "#1A1A18",
-        "board-accent": "#3B6D11",
-        "board-border": "#E5E2D9",
-        "board-surface": "#FFFFFF",
-        "board-muted": "#6B7280",
+        /* ── New design system ── */
+        cream:    "#F7F5F0",
+        sage:     "#4A6D5C",
+        "sage-light": "#5C8A72",
+        "sage-dark":  "#3B5A4A",
+        clay:     "#C4956A",
+        "clay-light": "#D4AA82",
+        charcoal: "#2B2B2B",
+        ink:      "#1A1A1A",
+        divider:  "#E0DDD5",
+        muted:    "#7A7A72",
+        surface:  "#FFFFFF",
       },
       fontFamily: {
         display: ['"Instrument Serif"', "Georgia", "serif"],
-        body: ['"DM Sans"', "system-ui", "sans-serif"],
-        sans: ['"Inter"', "system-ui", "sans-serif"],
-        mono: ['"DM Mono"', '"Courier New"', "monospace"],
+        sans:    ['"Inter"', "system-ui", "sans-serif"],
+      },
+      animation: {
+        "fade-in": "fadeIn 0.6s ease-out forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%":   { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
     },
   },
