@@ -4,7 +4,7 @@
 export const OPEN_TO_WORK = true;
 
 /** Path to downloadable resume PDF */
-export const RESUME_URL = "/assets/resume.pdf";
+export const RESUME_URL = "/bhautik-patel-resume.pdf";
 
 /** Default page title / meta */
 export const SITE_TITLE = "Bhautik Patel — Product Manager";
