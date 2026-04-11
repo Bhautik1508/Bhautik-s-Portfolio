@@ -8,30 +8,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* ── New design system ── */
-        cream:    "#F7F5F0",
-        sage:     "#4A6D5C",
-        "sage-light": "#5C8A72",
-        "sage-dark":  "#3B5A4A",
-        clay:     "#C4956A",
-        "clay-light": "#D4AA82",
-        charcoal: "#2B2B2B",
-        ink:      "#1A1A1A",
-        divider:  "#E0DDD5",
-        muted:    "#7A7A72",
-        surface:  "#FFFFFF",
+        cream:        "#F5F0EB",
+        "cream-dark": "#EDE8E1",
+        sage:         "#3B6B4F",
+        "sage-light": "#E8F0EB",
+        ink:          "#1A1A1A",
+        secondary:    "#6B6560",
+        muted:        "#9B9590",
+        border:       "#DDD8D2",
+        surface:      "#FFFFFF",
       },
       fontFamily: {
-        display: ['"Instrument Serif"', "Georgia", "serif"],
-        sans:    ['"Inter"', "system-ui", "sans-serif"],
+        display: ['"DM Serif Display"', "Georgia", "serif"],
+        sans:    ['"DM Sans"', "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",
+        "marquee": "marquee 40s linear infinite",
       },
       keyframes: {
         fadeIn: {
           "0%":   { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        marquee: {
+          "0%":   { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
     },

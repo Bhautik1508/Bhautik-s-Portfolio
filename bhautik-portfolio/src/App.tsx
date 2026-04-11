@@ -2,38 +2,39 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 
-// Layout
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import HomePage from "./pages/HomePage";
+import GiftSensePage from "./pages/GiftSensePage";
+import StockSagePage from "./pages/StockSagePage";
+import RiskReportingPage from "./pages/RiskReportingPage";
 
-// Pages
-import Home from "./pages/Home";
-import ProjectsPage from "./pages/ProjectsPage";
-import GiftSense from "./pages/GiftSense";
-import StockSage from "./pages/StockSage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
-
-/* ── Page transition variants ── */
 const pageVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 0.03, 0.26, 1] } },
-  exit:    { opacity: 0, y: -10, transition: { duration: 0.2 } },
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 0.03, 0.26, 1] as const } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
 
-/* ── Scroll to top on route change ── */
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      // Give the new page a tick to render before scrolling to the target.
+      const id = hash.replace("#", "");
+      const tryScroll = () => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      const t = window.setTimeout(tryScroll, 80);
+      return () => window.clearTimeout(t);
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
-/* ── Route wrapper with AnimatePresence ── */
 function AnimatedRoutes() {
   const location = useLocation();
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -44,12 +45,10 @@ function AnimatedRoutes() {
         exit="exit"
       >
         <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/giftsense" element={<GiftSense />} />
-          <Route path="/projects/stocksage" element={<StockSage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects/giftsense" element={<GiftSensePage />} />
+          <Route path="/projects/stocksage" element={<StockSagePage />} />
+          <Route path="/projects/risk-reporting" element={<RiskReportingPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -60,14 +59,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-cream">
-        {/* Grain texture overlay */}
-        <div className="grain-overlay" />
-
-        {/* Main layout */}
         <Navbar />
         <ScrollToTop />
         <AnimatedRoutes />
-        <Footer />
+        <ScrollToTopButton />
       </div>
     </BrowserRouter>
   );

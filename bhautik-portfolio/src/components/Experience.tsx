@@ -1,194 +1,108 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { RESUME_URL } from "../config/site";
 
-/* ── Timeline entry data ── */
-interface TimelineEntry {
+interface Role {
   company: string;
-  role: string;
-  duration: string;
-  bullets: string[];
+  title: string;
+  location: string;
+  dates: string;
+  description: string;
+  highlights: string[];
 }
 
-const ENTRIES: TimelineEntry[] = [
+const ROLES: Role[] = [
   {
     company: "Standard Chartered Bank",
-    role: "Product Manager / Senior Analyst",
-    duration: "2021 – 2024",
-    bullets: [
-      "Automated KYC onboarding pipeline, reducing manual effort by 40%",
-      "Built risk appetite reporting infrastructure serving 12 countries",
-      "Led data-to-PPT automation reducing reporting time from 3 days to 4 hours",
-    ],
+    title: "Product Manager",
+    location: "Bengaluru",
+    dates: "Sep 2022 — Present",
+    description:
+      "Led 4+ credit risk projects end-to-end with 100% regulatory compliance. Designed dashboards reducing manual reporting by 30%. Directed Hadoop data store with 90%+ data quality across 20+ systems. Promoted within 2 years for high-impact delivery.",
+    highlights: ["100%", "30%", "90%+", "20+"],
   },
   {
-    company: "Addivity (Co-founder)",
-    role: "Product & Strategy Lead",
-    duration: "2020 – 2021",
-    bullets: [
-      "Co-founded edtech startup, took product from 0-to-1",
-      "Defined MVP scope, ran user interviews with 50+ students",
-      "Built initial growth loop reaching 1,000+ users",
-    ],
+    company: "Prodapt Solutions",
+    title: "Presales Consultant",
+    location: "Chennai",
+    dates: "May 2021 — Aug 2022",
+    description:
+      "Developed RFP responses contributing to $3M in new revenue. Built GTM strategies driving 15% revenue growth. Improved deal closure rates by 20%.",
+    highlights: ["$3M", "15%", "20%"],
   },
   {
-    company: "IIT Delhi",
-    role: "MBA, Strategy & Operations",
-    duration: "2018 – 2020",
-    bullets: [
-      "Top-tier MBA with focus on product strategy and operations",
-    ],
+    company: "Addivity",
+    title: "Co-founder & Head of Product",
+    location: "Ahmedabad",
+    dates: "Mar 2020 — Apr 2021",
+    description:
+      "Built MVP from PRD to launch in 6 months. Led 80+ person team across product, sales, marketing. Established 65+ corporate partnerships and onboarded 15+ industry experts.",
+    highlights: ["80+", "65+", "15+"],
+  },
+  {
+    company: "Education",
+    title: "IIT Delhi — MBA",
+    location: "",
+    dates: "2019 — 2021",
+    description:
+      "Master of Business Administration from IIT Delhi. B.E. from LDRP-ITR, Gandhinagar (2014-2018).",
+    highlights: [],
   },
 ];
 
-/* ── Animation variants ── */
-const containerVariants = {
+/** Bold highlight numbers/metrics in a description string */
+function renderDescription(text: string, highlights: string[]) {
+  if (highlights.length === 0) return text;
+
+  const parts: (string | { bold: string })[] = [];
+
+  // Sort highlights by their first occurrence so we walk the string left-to-right.
+  const sorted = highlights
+    .map((h) => ({ h, idx: text.indexOf(h) }))
+    .filter((x) => x.idx >= 0)
+    .sort((a, b) => a.idx - b.idx);
+
+  let offset = 0;
+  for (const { h } of sorted) {
+    const adjustedIdx = text.indexOf(h, offset);
+    if (adjustedIdx < 0) continue;
+    if (adjustedIdx > offset) {
+      parts.push(text.slice(offset, adjustedIdx));
+    }
+    parts.push({ bold: h });
+    offset = adjustedIdx + h.length;
+  }
+  if (offset < text.length) {
+    parts.push(text.slice(offset));
+  }
+
+  return (
+    <>
+      {parts.map((part, i) =>
+        typeof part === "string" ? (
+          <span key={i}>{part}</span>
+        ) : (
+          <span key={i} style={{ color: "#1A1A1A", fontWeight: 500 }}>
+            {part.bold}
+          </span>
+        ),
+      )}
+    </>
+  );
+}
+
+const container = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.18 },
-  },
+  show: { transition: { staggerChildren: 0.12 } },
 };
 
-const entryVariants = {
-  hidden: { opacity: 0, y: 32 },
+const slideIn = {
+  hidden: { opacity: 0, x: -24 },
   show: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 0.03, 0.26, 1] },
+    x: 0,
+    transition: { duration: 0.55, ease: [0.22, 0.03, 0.26, 1] as const },
   },
 };
-
-const nodeVariants = {
-  hidden: { scale: 0, opacity: 0 },
-  show: {
-    scale: 1,
-    opacity: 1,
-    transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
-  },
-};
-
-/* ── Timeline node (hex-shaped) ── */
-function TimelineNode() {
-  return (
-    <motion.div
-      variants={nodeVariants}
-      style={{
-        position: "absolute",
-        left: -6,
-        top: 6,
-        width: 12,
-        height: 12,
-        zIndex: 2,
-      }}
-    >
-      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-        <polygon
-          points="6,0.5 11.5,3.5 11.5,10.5 6,13.5 0.5,10.5 0.5,3.5"
-          fill="#3B6D11"
-        />
-      </svg>
-    </motion.div>
-  );
-}
-
-/* ── Single timeline entry ── */
-function TimelineEntryCard({ entry }: { entry: TimelineEntry }) {
-  return (
-    <motion.div
-      variants={entryVariants}
-      style={{
-        position: "relative",
-        paddingLeft: 28,
-        paddingBottom: 40,
-      }}
-    >
-      {/* Hex node on the timeline line */}
-      <TimelineNode />
-
-      {/* Company name */}
-      <h3
-        className="font-display"
-        style={{
-          fontSize: "clamp(20px, 3vw, 26px)",
-          lineHeight: 1.15,
-          letterSpacing: "-0.02em",
-          color: "#1A1A18",
-          margin: "0 0 4px 0",
-        }}
-      >
-        {entry.company}
-      </h3>
-
-      {/* Role */}
-      <p
-        className="font-sans"
-        style={{
-          fontSize: 14,
-          fontWeight: 500,
-          color: "#3B6D11",
-          margin: "0 0 4px 0",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        {entry.role}
-      </p>
-
-      {/* Duration */}
-      <p
-        className="font-sans"
-        style={{
-          fontSize: 12,
-          fontWeight: 400,
-          color: "#6B7280",
-          margin: "0 0 14px 0",
-          letterSpacing: "0.02em",
-        }}
-      >
-        {entry.duration}
-      </p>
-
-      {/* Bullets */}
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-        }}
-      >
-        {entry.bullets.map((bullet, i) => (
-          <li
-            key={i}
-            className="font-sans"
-            style={{
-              fontSize: 14,
-              lineHeight: 1.65,
-              color: "#3D3D3A",
-              paddingLeft: 16,
-              position: "relative",
-            }}
-          >
-            {/* Custom bullet */}
-            <span
-              style={{
-                position: "absolute",
-                left: 0,
-                top: "0.45em",
-                width: 5,
-                height: 5,
-                borderRadius: "50%",
-                backgroundColor: "#E5E2D9",
-              }}
-            />
-            {bullet}
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  );
-}
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -196,127 +110,86 @@ export default function Experience() {
 
   return (
     <section
-      id="campaign-log"
+      id="experience"
       ref={sectionRef}
-      style={{
-        backgroundColor: "#FFFFFF",
-        borderTop: "1px solid #E5E2D9",
-        padding: "80px 24px",
-      }}
+      className="py-20 md:py-28 px-6"
     >
       <motion.div
-        variants={containerVariants}
+        variants={container}
         initial="hidden"
         animate={isInView ? "show" : "hidden"}
-        style={{
-          maxWidth: 800,
-          margin: "0 auto",
-        }}
+        className="mx-auto max-w-4xl"
       >
-        {/* Section eyebrow */}
+        {/* Section header */}
         <motion.p
-          variants={entryVariants}
-          className="font-sans"
+          variants={slideIn}
+          className="font-sans font-medium"
           style={{
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase" as const,
-            color: "#3B6D11",
-            margin: "0 0 12px 0",
+            fontSize: 12,
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#3B6B4F",
+            marginBottom: 12,
           }}
         >
-          Campaign Log
+          Experience
         </motion.p>
-
-        {/* Section heading */}
         <motion.h2
-          variants={entryVariants}
+          variants={slideIn}
           className="font-display"
           style={{
             fontSize: "clamp(28px, 4vw, 40px)",
             lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            color: "#1A1A18",
-            margin: "0 0 48px 0",
+            color: "#1A1A1A",
+            marginBottom: 48,
           }}
         >
-          Experience
+          My work experience
         </motion.h2>
 
-        {/* Timeline */}
-        <div
-          style={{
-            position: "relative",
-            borderLeft: "1px solid #E5E2D9",
-            marginLeft: 6,
-          }}
-        >
-          {ENTRIES.map((entry) => (
-            <TimelineEntryCard key={entry.company} entry={entry} />
+        {/* Roles */}
+        <div className="flex flex-col">
+          {ROLES.map((role, i) => (
+            <motion.div
+              key={role.company}
+              variants={slideIn}
+              className="flex flex-col md:flex-row gap-4 md:gap-10 py-7"
+              style={{
+                borderTop: i === 0 ? "0.5px solid #DDD8D2" : undefined,
+                borderBottom: "0.5px solid #DDD8D2",
+              }}
+            >
+              {/* Left column */}
+              <div className="flex-shrink-0" style={{ minWidth: 140, maxWidth: 180 }}>
+                <p
+                  className="font-sans font-medium"
+                  style={{ fontSize: 14, color: "#1A1A1A", marginBottom: 2 }}
+                >
+                  {role.company}
+                </p>
+                <p
+                  className="font-sans font-medium"
+                  style={{ fontSize: 12, color: "#3B6B4F", marginBottom: 4 }}
+                >
+                  {role.title}
+                </p>
+                <p className="font-sans" style={{ fontSize: 11, color: "#9B9590" }}>
+                  {role.location && `${role.location} · `}{role.dates}
+                </p>
+              </div>
+
+              {/* Right column */}
+              <div className="flex-1">
+                <p
+                  className="font-sans"
+                  style={{ fontSize: 13, lineHeight: 1.6, color: "#6B6560" }}
+                >
+                  {renderDescription(role.description, role.highlights)}
+                </p>
+              </div>
+            </motion.div>
           ))}
         </div>
-
-        {/* Download Full Resume CTA */}
-        <motion.div
-          variants={entryVariants}
-          style={{
-            marginTop: 16,
-            paddingTop: 32,
-            borderTop: "1px solid #E5E2D9",
-            textAlign: "center",
-          }}
-        >
-          <a
-            href={RESUME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-sans"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              fontSize: 14,
-              fontWeight: 500,
-              padding: "12px 28px",
-              borderRadius: 6,
-              backgroundColor: "#3B6D11",
-              color: "#FFFFFF",
-              textDecoration: "none",
-              border: "none",
-              transition: "all 150ms ease",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#2F5A0D";
-              e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 16px rgba(59, 109, 17, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#3B6D11";
-              e.currentTarget.style.transform = "";
-              e.currentTarget.style.boxShadow = "";
-            }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Download Full Resume
-          </a>
-        </motion.div>
       </motion.div>
     </section>
   );

@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
-  { to: "/about", label: "About" },
-  { to: "/projects", label: "Projects" },
-  { to: "/about#experience", label: "Experience" },
-  { to: "/contact", label: "Contact" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#experience", label: "Experience" },
 ] as const;
 
 export default function Navbar() {
-  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -22,35 +22,58 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const isActive = (to: string) =>
-    to === "/" ? location.pathname === "/" : location.pathname.startsWith(to.split("#")[0]);
+  const scrollTo = (href: string) => {
+    setMobileOpen(false);
+    if (location.pathname !== "/") {
+      // Navigate to home with hash — ScrollToTop will handle the scroll.
+      navigate(`/${href}`);
+      return;
+    }
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const goHome = () => {
+    setMobileOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-cream/80 backdrop-blur-lg border-b border-divider shadow-sm"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        backgroundColor: scrolled ? "rgba(245, 240, 235, 0.9)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? "0.5px solid #DDD8D2" : "0.5px solid transparent",
+      }}
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
-        {/* Wordmark */}
-        <Link
-          to="/"
-          className="font-display text-[22px] text-ink tracking-tight hover:text-sage transition-colors duration-200"
+        {/* Wordmark — stacked two lines */}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            goHome();
+          }}
+          className="font-display leading-[1.1] text-ink hover:opacity-70 transition-opacity duration-200"
+          style={{ fontSize: 20 }}
         >
-          Bhautik Patel
-        </Link>
+          Bhautik
+          <br />
+          Patel.
+        </a>
 
-        {/* Desktop links — staggered fade-in */}
+        {/* Desktop links — center-right */}
         <motion.ul
           className="hidden md:flex items-center gap-8"
           initial="hidden"
@@ -60,32 +83,49 @@ export default function Navbar() {
             visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
           }}
         >
-          {NAV_LINKS.map(({ to, label }) => (
+          {NAV_LINKS.map(({ href, label }) => (
             <motion.li
-              key={to}
+              key={href}
               variants={{
                 hidden: { opacity: 0, y: -8 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
               }}
             >
-              <Link
-                to={to}
-                className={`text-[14px] font-medium transition-colors duration-200 ${
-                  isActive(to)
-                    ? "text-sage"
-                    : "text-charcoal/60 hover:text-charcoal"
-                }`}
+              <button
+                onClick={() => scrollTo(href)}
+                className="font-sans transition-colors duration-200 hover:text-ink"
+                style={{ fontSize: 13, color: "#6B6560" }}
               >
                 {label}
-              </Link>
+              </button>
             </motion.li>
           ))}
+          {/* CTA pill */}
+          <motion.li
+            variants={{
+              hidden: { opacity: 0, y: -8 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+            }}
+          >
+            <button
+              onClick={() => scrollTo("#contact")}
+              className="font-sans font-medium text-white transition-all duration-200 hover:opacity-90"
+              style={{
+                fontSize: 13,
+                backgroundColor: "#3B6B4F",
+                borderRadius: 100,
+                padding: "8px 20px",
+              }}
+            >
+              Get in touch
+            </button>
+          </motion.li>
         </motion.ul>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen((v) => !v)}
-          className="flex md:hidden h-10 w-10 items-center justify-center text-charcoal"
+          className="flex md:hidden h-10 w-10 items-center justify-center text-ink"
           aria-label="Toggle menu"
           aria-expanded={mobileOpen}
         >
@@ -122,28 +162,39 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-cream border-b border-divider"
+            className="md:hidden overflow-hidden"
+            style={{ backgroundColor: "#F5F0EB", borderBottom: "0.5px solid #DDD8D2" }}
           >
             <ul className="flex flex-col gap-1 px-6 pb-6 pt-2">
-              {NAV_LINKS.map(({ to, label }, i) => (
+              {NAV_LINKS.map(({ href, label }, i) => (
                 <motion.li
-                  key={to}
+                  key={href}
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 + i * 0.06 }}
                 >
-                  <Link
-                    to={to}
-                    className={`block py-3 px-3 text-[15px] font-medium rounded-lg transition-colors ${
-                      isActive(to)
-                        ? "text-sage bg-sage/5"
-                        : "text-charcoal/60 hover:text-charcoal"
-                    }`}
+                  <button
+                    onClick={() => scrollTo(href)}
+                    className="block w-full text-left py-3 px-3 font-sans rounded-lg transition-colors hover:bg-sage-light"
+                    style={{ fontSize: 15, color: "#6B6560" }}
                   >
                     {label}
-                  </Link>
+                  </button>
                 </motion.li>
               ))}
+              <motion.li
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 + NAV_LINKS.length * 0.06 }}
+              >
+                <button
+                  onClick={() => scrollTo("#contact")}
+                  className="mt-2 w-full font-sans font-medium text-white text-center py-3 rounded-full transition-opacity hover:opacity-90"
+                  style={{ fontSize: 14, backgroundColor: "#3B6B4F" }}
+                >
+                  Get in touch
+                </button>
+              </motion.li>
             </ul>
           </motion.div>
         )}
