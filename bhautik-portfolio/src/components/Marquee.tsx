@@ -34,7 +34,7 @@ export default function Marquee() {
           <span
             key={`${skill}-${i}`}
             className="font-sans whitespace-nowrap inline-flex items-center"
-            style={{ fontSize: 12, color: "#9B9590", padding: "0 20px" }}
+            style={{ fontSize: 14, color: "#6B6560", padding: "0 22px" }}
           >
             {/* Sage green dot */}
             <span

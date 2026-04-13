@@ -8,6 +8,8 @@ import HomePage from "./pages/HomePage";
 import GiftSensePage from "./pages/GiftSensePage";
 import StockSagePage from "./pages/StockSagePage";
 import RiskReportingPage from "./pages/RiskReportingPage";
+import ChatGPTVoicePage from "./pages/ChatGPTVoicePage";
+import AddivityPage from "./pages/AddivityPage";
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
@@ -49,6 +51,8 @@ function AnimatedRoutes() {
           <Route path="/projects/giftsense" element={<GiftSensePage />} />
           <Route path="/projects/stocksage" element={<StockSagePage />} />
           <Route path="/projects/risk-reporting" element={<RiskReportingPage />} />
+          <Route path="/projects/chatgpt-voice" element={<ChatGPTVoicePage />} />
+          <Route path="/projects/addivity" element={<AddivityPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

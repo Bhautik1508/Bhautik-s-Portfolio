@@ -5,32 +5,34 @@ const CARDS = [
   {
     title: "Product management",
     items: [
-      "Roadmaps & PRDs",
-      "RICE prioritization",
+      "Roadmaps, PRDs & specs",
+      "RICE / North Star metrics",
       "User research & surveys",
-      "Agile / Scrum",
       "Stakeholder management",
-      "Go-to-Market",
+      "0\u20111 and scale-up GTM",
+      "AI / LLM product design",
+    ],
+  },
+  {
+    title: "Fintech domain",
+    items: [
+      "Credit risk & risk appetite",
+      "Basel III / IV \u00b7 IFRS 9",
+      "Regulatory reporting",
+      "Hadoop data lake & lineage",
+      "Model & data quality controls",
+      "Audit and compliance evidencing",
     ],
   },
   {
     title: "Data & analytics",
     items: [
-      "SQL & Hadoop",
-      "Tableau dashboards",
-      "KPI frameworks",
-      "A/B testing",
-      "Reconciliation & QA",
-    ],
-  },
-  {
-    title: "Tools & tech",
-    items: [
-      "JIRA & Confluence",
-      "Figma",
-      "Python (pandas)",
-      "Prompt engineering",
-      "LLM integration (Gemini, Claude)",
+      "SQL, Python (pandas)",
+      "Tableau & dashboarding",
+      "KPI design & A/B testing",
+      "Reconciliation & data QA",
+      "python-pptx, Claude / Gemini API",
+      "Prompt engineering & LangGraph",
     ],
   },
 ];
@@ -70,7 +72,7 @@ export default function Capabilities() {
           variants={fadeUp}
           className="font-sans font-medium"
           style={{
-            fontSize: 12,
+            fontSize: 14,
             letterSpacing: "2px",
             textTransform: "uppercase",
             color: "#3B6B4F",
@@ -85,10 +87,10 @@ export default function Capabilities() {
           variants={fadeUp}
           className="font-display"
           style={{
-            fontSize: 28,
-            lineHeight: 1.2,
+            fontSize: "clamp(30px, 4.5vw, 42px)",
+            lineHeight: 1.15,
             color: "#1A1A1A",
-            marginBottom: 12,
+            marginBottom: 16,
           }}
         >
           What I bring to the table
@@ -99,15 +101,15 @@ export default function Capabilities() {
           variants={fadeUp}
           className="font-sans"
           style={{
-            fontSize: 14,
-            lineHeight: 1.7,
-            color: "#6B6560",
-            maxWidth: 520,
-            marginBottom: 40,
+            fontSize: 18,
+            lineHeight: 1.75,
+            color: "#3E3935",
+            maxWidth: 600,
+            marginBottom: 48,
           }}
         >
-          From regulated banking systems to 0-to-1 AI products — I operate
-          across the full product lifecycle.
+          From regulated banking systems to 0‑to‑1 AI products. Deep fintech
+          domain knowledge paired with hands-on data and product craft.
         </motion.p>
 
         {/* 3-column cards grid */}
@@ -130,9 +132,9 @@ export default function Capabilities() {
               <h3
                 className="font-sans font-medium"
                 style={{
-                  fontSize: 13,
+                  fontSize: 17,
                   color: "#3B6B4F",
-                  marginBottom: 16,
+                  marginBottom: 20,
                 }}
               >
                 {card.title}
@@ -146,14 +148,14 @@ export default function Capabilities() {
                   margin: 0,
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
+                  gap: 12,
                 }}
               >
                 {card.items.map((item) => (
                   <li
                     key={item}
                     className="font-sans flex items-start gap-2.5"
-                    style={{ fontSize: 12, lineHeight: 1.5, color: "#6B6560" }}
+                    style={{ fontSize: 15, lineHeight: 1.6, color: "#3E3935" }}
                   >
                     {/* Bullet dot */}
                     <span

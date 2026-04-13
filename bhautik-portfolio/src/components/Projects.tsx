@@ -29,11 +29,11 @@ function FilledPill({
           })}
       className="font-sans font-medium transition-opacity hover:opacity-80"
       style={{
-        fontSize: 11,
+        fontSize: 13,
         color: "#FFFFFF",
         backgroundColor: color,
         borderRadius: 100,
-        padding: "6px 16px",
+        padding: "8px 18px",
         textDecoration: "none",
         whiteSpace: "nowrap",
       }}
@@ -48,7 +48,7 @@ function OutlinedPill({
   label,
   external,
   borderColor = "#DDD8D2",
-  textColor = "#6B6560",
+  textColor = "#3E3935",
 }: {
   href: string;
   label: string;
@@ -71,11 +71,11 @@ function OutlinedPill({
           })}
       className="font-sans font-medium transition-opacity hover:opacity-70"
       style={{
-        fontSize: 11,
+        fontSize: 13,
         color: textColor,
         border: `1px solid ${borderColor}`,
         borderRadius: 100,
-        padding: "5px 16px",
+        padding: "7px 18px",
         textDecoration: "none",
         whiteSpace: "nowrap",
       }}
@@ -89,7 +89,7 @@ function RoutedPill({
   to,
   label,
   borderColor = "#DDD8D2",
-  textColor = "#6B6560",
+  textColor = "#3E3935",
 }: {
   to: string;
   label: string;
@@ -101,11 +101,11 @@ function RoutedPill({
       to={to}
       className="font-sans font-medium transition-opacity hover:opacity-70"
       style={{
-        fontSize: 11,
+        fontSize: 13,
         color: textColor,
         border: `1px solid ${borderColor}`,
         borderRadius: 100,
-        padding: "5px 16px",
+        padding: "7px 18px",
         textDecoration: "none",
         whiteSpace: "nowrap",
       }}
@@ -118,6 +118,7 @@ function RoutedPill({
 /* ── Project card data ── */
 interface ProjectCard {
   /* Image area */
+  screenshot?: string;
   gradientFrom: string;
   gradientTo: string;
   watermark: string;
@@ -147,6 +148,34 @@ interface ProjectCard {
 
 const PROJECTS: ProjectCard[] = [
   {
+    gradientFrom: "#EDE8E1",
+    gradientTo: "#DDD8D0",
+    watermark: "SCB Risk Packs",
+    watermarkFont: "display",
+    watermarkColor: "rgba(59,107,79,0.55)",
+    watermarkSize: 26,
+    pills: [
+      { label: "Credit Risk", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "Standard Chartered", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "Enterprise", bg: "#E8F0EB", color: "#3B6B4F" },
+    ],
+    title: "SCB Risk Reporting Automation",
+    description:
+      "Replaced 3-day manual PPT cycles with a Python + Claude pipeline for country/cluster risk appetite packs across 12 markets. 100% regulatory compliance.",
+    stats: [
+      { value: "3d → 4h", label: "cycle time" },
+      { value: "12", label: "countries" },
+    ],
+    buttons: [
+      {
+        type: "route",
+        label: "Case study",
+        to: "/projects/risk-reporting",
+      },
+    ],
+  },
+  {
+    screenshot: "/project-giftsense.png",
     gradientFrom: "#E8F0EB",
     gradientTo: "#D4E8DA",
     watermark: "GiftSense",
@@ -154,15 +183,15 @@ const PROJECTS: ProjectCard[] = [
     watermarkColor: "rgba(59,107,79,0.6)",
     watermarkSize: 32,
     pills: [
-      { label: "AI/ML", bg: "#E8F0EB", color: "#3B6B4F" },
-      { label: "User research", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "0\u20111 PM", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "AI/LLM", bg: "#E8F0EB", color: "#3B6B4F" },
       { label: "Live", bg: "#E8F0EB", color: "#3B6B4F" },
     ],
-    title: "GiftSense — AI gifting engine",
+    title: "GiftSense: AI gifting engine",
     description:
-      "Helping Indian gifters choose confidently using multi-signal AI profiling. \u20B96.25L Cr market, 73% find gifting stressful.",
+      "Helped Indian gifters move from 73% stress to confident decisions using multi-signal AI profiling on a \u20B96.25L Cr market.",
     stats: [
-      { value: "30", label: "survey responses" },
+      { value: "30", label: "user interviews" },
       { value: "80", label: "RICE score" },
     ],
     buttons: [
@@ -180,6 +209,7 @@ const PROJECTS: ProjectCard[] = [
     ],
   },
   {
+    screenshot: "/project-stocksage.png",
     gradientFrom: "#1A1A2E",
     gradientTo: "#16213E",
     watermark: "STOCKSAGE AI",
@@ -192,12 +222,12 @@ const PROJECTS: ProjectCard[] = [
       { label: "LangGraph", bg: "#E6EEF8", color: "#1E3C72" },
       { label: "Live", bg: "#E6EEF8", color: "#1E3C72" },
     ],
-    title: "StockSage AI \u2014 Equity research",
+    title: "StockSage AI: Equity research",
     description:
-      "6 AI analysts, 1 verdict. Institution-grade Indian stock analysis using multi-agent architecture in 30 seconds.",
+      "Compressed institutional-grade equity research from hours to 30 seconds with a 6-agent LangGraph architecture covering NSE + BSE.",
     stats: [
+      { value: "hrs \u2192 30s", label: "research time" },
       { value: "6", label: "AI agents" },
-      { value: "NSE+BSE", label: "coverage" },
     ],
     buttons: [
       {
@@ -217,29 +247,76 @@ const PROJECTS: ProjectCard[] = [
     ],
   },
   {
-    gradientFrom: "#EDE8E1",
-    gradientTo: "#DDD8D0",
-    watermark: "SCB Risk Packs",
-    watermarkFont: "display",
-    watermarkColor: "rgba(155,149,144,0.5)",
-    watermarkSize: 26,
+    screenshot: "/project-chatgpt-voice.png",
+    gradientFrom: "#1A1A1A",
+    gradientTo: "#2D2D2D",
+    watermark: "ChatGPT Voice",
+    watermarkFont: "sans",
+    watermarkColor: "rgba(16,163,127,0.55)",
+    watermarkSize: 24,
+    watermarkLetterSpacing: "1px",
     pills: [
-      { label: "Enterprise", bg: "#F0EDEA", color: "#6B6560" },
-      { label: "Python", bg: "#F0EDEA", color: "#6B6560" },
-      { label: "Automation", bg: "#F0EDEA", color: "#6B6560" },
+      { label: "Growth PM", bg: "#E6F4F0", color: "#0D7C5F" },
+      { label: "User Research", bg: "#E6F4F0", color: "#0D7C5F" },
+      { label: "ChatGPT", bg: "#E6F4F0", color: "#0D7C5F" },
     ],
-    title: "Risk reporting automation",
+    title: "Increase voice usage on ChatGPT mobile",
     description:
-      "Automated country/cluster risk appetite packs using python-pptx, pandas, and Claude API at Standard Chartered.",
+      "Designed contextual voice nudges to convert India\u2019s 81% \u201ctried-once\u201d users into regular voice adopters, targeting a $1B voice-tech market growing at 35.7% CAGR.",
     stats: [
-      { value: "30%", label: "faster" },
-      { value: "20+", label: "systems" },
+      { value: "81%", label: "tried voice" },
+      { value: "26%", label: "use regularly" },
+    ],
+    buttons: [
+      {
+        type: "filled",
+        label: "Prototype \u2192",
+        href: "https://www.figma.com/make/iGxSO2TFLYeZ708eBjU6s9/Design-Inline-Voice-Nudge",
+        external: true,
+        color: "#0D7C5F",
+      },
+      {
+        type: "outlined",
+        label: "PRD",
+        href: "https://assets.nextleap.app/submissions/Bhautik_Milestone3_IncreasingvoiceusageonChatGPT-6aa5614d-5dd6-4b54-a794-400605aedbb4.pdf",
+        external: true,
+        borderColor: "#C4C0B7",
+        textColor: "#3E3935",
+      },
+      {
+        type: "route",
+        label: "Case study",
+        to: "/projects/chatgpt-voice",
+        borderColor: "#C4C0B7",
+        textColor: "#3E3935",
+      },
+    ],
+  },
+  {
+    screenshot: "/project-addivity.png",
+    gradientFrom: "#EDE8E1",
+    gradientTo: "#E2DCD4",
+    watermark: "Addivity",
+    watermarkFont: "display",
+    watermarkColor: "rgba(59,107,79,0.5)",
+    watermarkSize: 30,
+    pills: [
+      { label: "0\u20111 Startup", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "Co-founder", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "EdTech", bg: "#E8F0EB", color: "#3B6B4F" },
+    ],
+    title: "Addivity: EdTech startup",
+    description:
+      "Took an idea from blank PRD to launched MVP in 6 months, building an 80+ person team. Closed 65+ corporate partnerships and impacted 240+ students before exit.",
+    stats: [
+      { value: "80+", label: "team size" },
+      { value: "65+", label: "partnerships" },
     ],
     buttons: [
       {
         type: "route",
-        label: "Read more",
-        to: "/projects/risk-reporting",
+        label: "Case study",
+        to: "/projects/addivity",
       },
     ],
   },
@@ -279,7 +356,7 @@ export default function Projects() {
             variants={fadeUp}
             className="font-sans font-medium"
             style={{
-              fontSize: 12,
+              fontSize: 14,
               letterSpacing: "2px",
               textTransform: "uppercase",
               color: "#3B6B4F",
@@ -292,10 +369,10 @@ export default function Projects() {
             variants={fadeUp}
             className="font-display"
             style={{
-              fontSize: "clamp(28px, 4vw, 40px)",
+              fontSize: "clamp(30px, 4.5vw, 44px)",
               lineHeight: 1.1,
               color: "#1A1A1A",
-              marginBottom: 12,
+              marginBottom: 16,
             }}
           >
             Selected projects
@@ -304,32 +381,33 @@ export default function Projects() {
             variants={fadeUp}
             className="font-sans"
             style={{
-              fontSize: 14,
-              lineHeight: 1.7,
-              color: "#6B6560",
-              maxWidth: 480,
+              fontSize: 18,
+              lineHeight: 1.75,
+              color: "#3E3935",
+              maxWidth: 580,
             }}
           >
-            Side projects where I applied PM thinking end-to-end — from user
+            Side projects where I applied PM thinking end-to-end, from user
             research to shipped product.
           </motion.p>
         </motion.div>
 
-        {/* Horizontal scroll container */}
+        {/* Grid layout */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="projects-scroll flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
-          style={{ scrollPaddingLeft: 0 }}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+          }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {PROJECTS.map((project) => (
-            <div
+            <motion.div
               key={project.title}
-              className="project-card flex-shrink-0 snap-start flex flex-col"
+              variants={fadeUp}
+              className="project-card flex flex-col"
               style={{
-                minWidth: 300,
-                maxWidth: 340,
                 backgroundColor: "#FFFFFF",
                 border: "0.5px solid #DDD8D2",
                 borderRadius: 12,
@@ -338,31 +416,46 @@ export default function Projects() {
             >
               {/* Top image / gradient area */}
               <div
-                className="relative flex items-center justify-center"
+                className="relative overflow-hidden"
                 style={{
-                  height: 160,
+                  height: 180,
                   background: `linear-gradient(135deg, ${project.gradientFrom}, ${project.gradientTo})`,
                 }}
               >
-                <span
-                  className={
-                    project.watermarkFont === "display"
-                      ? "font-display"
-                      : "font-sans font-medium"
-                  }
-                  style={{
-                    fontSize: project.watermarkSize,
-                    color: project.watermarkColor,
-                    letterSpacing: project.watermarkLetterSpacing || "normal",
-                    userSelect: "none",
-                  }}
-                >
-                  {project.watermark}
-                </span>
+                {project.screenshot ? (
+                  <img
+                    src={project.screenshot}
+                    alt={project.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "top center",
+                    }}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <span
+                      className={
+                        project.watermarkFont === "display"
+                          ? "font-display"
+                          : "font-sans font-medium"
+                      }
+                      style={{
+                        fontSize: project.watermarkSize,
+                        color: project.watermarkColor,
+                        letterSpacing: project.watermarkLetterSpacing || "normal",
+                        userSelect: "none",
+                      }}
+                    >
+                      {project.watermark}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Card body */}
-              <div className="flex flex-col flex-1 p-5">
+              <div className="flex flex-col flex-1 p-6">
                 {/* Pill tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {project.pills.map((pill) => (
@@ -370,11 +463,11 @@ export default function Projects() {
                       key={pill.label}
                       className="font-sans font-medium"
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         color: pill.color,
                         backgroundColor: pill.bg,
                         borderRadius: 100,
-                        padding: "3px 10px",
+                        padding: "4px 11px",
                       }}
                     >
                       {pill.label}
@@ -386,10 +479,10 @@ export default function Projects() {
                 <h3
                   className="font-display"
                   style={{
-                    fontSize: 17,
+                    fontSize: 21,
                     lineHeight: 1.25,
                     color: "#1A1A1A",
-                    marginBottom: 8,
+                    marginBottom: 12,
                   }}
                 >
                   {project.title}
@@ -399,10 +492,10 @@ export default function Projects() {
                 <p
                   className="font-sans"
                   style={{
-                    fontSize: 13,
-                    lineHeight: 1.6,
-                    color: "#6B6560",
-                    marginBottom: 14,
+                    fontSize: 15,
+                    lineHeight: 1.7,
+                    color: "#3E3935",
+                    marginBottom: 16,
                   }}
                 >
                   {project.description}
@@ -413,20 +506,20 @@ export default function Projects() {
                   className="flex items-center gap-4 mb-5"
                   style={{
                     borderTop: "0.5px solid #DDD8D2",
-                    paddingTop: 12,
+                    paddingTop: 14,
                   }}
                 >
                   {project.stats.map((stat, i) => (
                     <div key={i} className="flex items-baseline gap-1">
                       <span
                         className="font-sans font-medium"
-                        style={{ fontSize: 12, color: "#3B6B4F" }}
+                        style={{ fontSize: 14, color: "#3B6B4F" }}
                       >
                         {stat.value}
                       </span>
                       <span
                         className="font-sans"
-                        style={{ fontSize: 11, color: "#9B9590" }}
+                        style={{ fontSize: 13, color: "#6B6560" }}
                       >
                         {stat.label}
                       </span>
@@ -475,7 +568,7 @@ export default function Projects() {
                   })}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

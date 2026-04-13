@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
+  { href: "#education", label: "Education" },
 ] as const;
 
 export default function Navbar() {
@@ -94,7 +95,7 @@ export default function Navbar() {
               <button
                 onClick={() => scrollTo(href)}
                 className="font-sans transition-colors duration-200 hover:text-ink"
-                style={{ fontSize: 13, color: "#6B6560" }}
+                style={{ fontSize: 15, color: "#3E3935" }}
               >
                 {label}
               </button>
@@ -111,10 +112,10 @@ export default function Navbar() {
               onClick={() => scrollTo("#contact")}
               className="font-sans font-medium text-white transition-all duration-200 hover:opacity-90"
               style={{
-                fontSize: 13,
+                fontSize: 15,
                 backgroundColor: "#3B6B4F",
                 borderRadius: 100,
-                padding: "8px 20px",
+                padding: "10px 24px",
               }}
             >
               Get in touch
@@ -176,7 +177,7 @@ export default function Navbar() {
                   <button
                     onClick={() => scrollTo(href)}
                     className="block w-full text-left py-3 px-3 font-sans rounded-lg transition-colors hover:bg-sage-light"
-                    style={{ fontSize: 15, color: "#6B6560" }}
+                    style={{ fontSize: 17, color: "#3E3935" }}
                   >
                     {label}
                   </button>
@@ -190,7 +191,7 @@ export default function Navbar() {
                 <button
                   onClick={() => scrollTo("#contact")}
                   className="mt-2 w-full font-sans font-medium text-white text-center py-3 rounded-full transition-opacity hover:opacity-90"
-                  style={{ fontSize: 14, backgroundColor: "#3B6B4F" }}
+                  style={{ fontSize: 16, backgroundColor: "#3B6B4F" }}
                 >
                   Get in touch
                 </button>

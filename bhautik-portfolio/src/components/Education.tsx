@@ -1,51 +1,40 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-interface Role {
-  company: string;
-  title: string;
+interface Degree {
+  institution: string;
+  degree: string;
   location: string;
   dates: string;
   description: string;
   highlights: string[];
 }
 
-const ROLES: Role[] = [
+const DEGREES: Degree[] = [
   {
-    company: "Standard Chartered Bank",
-    title: "Product Manager, Credit Risk",
-    location: "Bengaluru",
-    dates: "Sep 2022 \u2013 Present",
+    institution: "Indian Institute of Technology, Delhi",
+    degree: "MBA, Management",
+    location: "New Delhi",
+    dates: "2020 \u2013 2022",
     description:
-      "Cut country/cluster risk appetite reporting from 3 days to 4 hours by replacing manual SQL+Excel pipelines with python-pptx, pandas and Claude API, freeing analysts for insight work across 12 markets. Led 4 credit risk programmes end-to-end at 100% regulatory compliance, owning 20+ upstream data feeds at 90%+ data quality. Promoted within 2 years for delivery impact.",
-    highlights: ["3 days to 4 hours", "12 markets", "100%", "20+", "90%+"],
+      "Specialised in product management and technology strategy. Built GiftSense as a capstone, taking the product from blank PRD to live MVP, covering user research, market sizing, LLM architecture and go-to-market.",
+    highlights: ["product management", "GiftSense"],
   },
   {
-    company: "Prodapt Solutions",
-    title: "Presales Consultant",
-    location: "Chennai",
-    dates: "May 2021 \u2013 Aug 2022",
-    description:
-      "Turned cold RFPs into $3M of new revenue by rebuilding the response motion around customer pain rather than capability dumps. Lifted close rate by 20% and pushed annual GTM growth to 15% through tighter qualification and partner co-selling.",
-    highlights: ["$3M", "20%", "15%"],
-  },
-  {
-    company: "Addivity",
-    title: "Co-founder & Head of Product",
+    institution: "LDRP Institute of Technology & Research",
+    degree: "B.E., Information Technology",
     location: "Ahmedabad",
-    dates: "Mar 2020 \u2013 Apr 2021",
+    dates: "2015 \u2013 2019",
     description:
-      "Took an idea from blank PRD to launched MVP in 6 months by building and leading an 80+ person cross-functional team. Closed 65+ corporate partnerships and onboarded 15+ industry experts, validating the marketplace before exit.",
-    highlights: ["6 months", "80+", "65+", "15+"],
+      "Core curriculum in data structures, databases, networking and software engineering. Founded Addivity during this period, leading an 80+ person team and closing 65+ corporate partnerships before graduating.",
+    highlights: ["Addivity", "80+", "65+"],
   },
 ];
 
-/** Bold highlight numbers/metrics in a description string */
 function renderDescription(text: string, highlights: string[]) {
   if (highlights.length === 0) return text;
 
   const parts: (string | { bold: string })[] = [];
-
   const sorted = highlights
     .map((h) => ({ h, idx: text.indexOf(h) }))
     .filter((x) => x.idx >= 0)
@@ -94,13 +83,13 @@ const slideIn = {
   },
 };
 
-export default function Experience() {
+export default function Education() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
     <section
-      id="experience"
+      id="education"
       ref={sectionRef}
       className="py-20 md:py-28 px-6"
     >
@@ -122,7 +111,7 @@ export default function Experience() {
             marginBottom: 12,
           }}
         >
-          Experience
+          Education
         </motion.p>
         <motion.h2
           variants={slideIn}
@@ -134,17 +123,16 @@ export default function Experience() {
             marginBottom: 48,
           }}
         >
-          My work experience
+          Where I studied
         </motion.h2>
 
-        {/* Roles with timeline */}
+        {/* Degrees with timeline */}
         <div className="relative">
-          {ROLES.map((role, i) => (
+          {DEGREES.map((deg, i) => (
             <motion.div
-              key={role.company}
+              key={deg.institution}
               variants={slideIn}
               className="relative flex gap-6 md:gap-10"
-              style={{ paddingBottom: i < ROLES.length - 1 ? 0 : 0 }}
             >
               {/* Timeline column */}
               <div
@@ -165,7 +153,7 @@ export default function Experience() {
                   }}
                 />
                 {/* Vertical line */}
-                {i < ROLES.length - 1 && (
+                {i < DEGREES.length - 1 && (
                   <div
                     style={{
                       width: 2,
@@ -181,21 +169,21 @@ export default function Experience() {
                 className="flex-1 pb-10"
                 style={{
                   borderBottom:
-                    i < ROLES.length - 1
+                    i < DEGREES.length - 1
                       ? "0.5px solid #DDD8D2"
                       : undefined,
-                  marginBottom: i < ROLES.length - 1 ? 32 : 0,
+                  marginBottom: i < DEGREES.length - 1 ? 32 : 0,
                 }}
               >
-                {/* Company name */}
+                {/* Institution name */}
                 <p
                   className="font-sans font-medium"
                   style={{ fontSize: 17, color: "#1A1A1A", marginBottom: 2 }}
                 >
-                  {role.company}
+                  {deg.institution}
                 </p>
 
-                {/* Title + meta on same line */}
+                {/* Degree + meta on same line */}
                 <div
                   className="flex flex-wrap items-center gap-x-2 gap-y-1"
                   style={{ marginBottom: 12 }}
@@ -204,7 +192,7 @@ export default function Experience() {
                     className="font-sans font-medium"
                     style={{ fontSize: 15, color: "#3B6B4F" }}
                   >
-                    {role.title}
+                    {deg.degree}
                   </p>
                   <span
                     className="font-sans"
@@ -216,7 +204,7 @@ export default function Experience() {
                     className="font-sans"
                     style={{ fontSize: 14, color: "#6B6560" }}
                   >
-                    {role.location}
+                    {deg.location}
                   </p>
                   <span
                     className="font-sans"
@@ -228,7 +216,7 @@ export default function Experience() {
                     className="font-sans"
                     style={{ fontSize: 14, color: "#6B6560" }}
                   >
-                    {role.dates}
+                    {deg.dates}
                   </p>
                 </div>
 
@@ -237,7 +225,7 @@ export default function Experience() {
                   className="font-sans"
                   style={{ fontSize: 16, lineHeight: 1.8, color: "#3E3935" }}
                 >
-                  {renderDescription(role.description, role.highlights)}
+                  {renderDescription(deg.description, deg.highlights)}
                 </p>
               </div>
             </motion.div>

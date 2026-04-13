@@ -32,47 +32,33 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 0.03, 0.26, 1] as const } },
 };
 
-const headlineContainer = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.055, delayChildren: 0.05 } },
-};
-
-const wordUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 0.03, 0.26, 1] as const },
-  },
-};
-
-/* ── Headline words (italic flag for emphasis) ── */
-const HEADLINE_WORDS: { text: string; italic?: boolean }[] = [
-  { text: "I" },
-  { text: "build" },
-  { text: "products" },
-  { text: "that" },
-  { text: "make" },
-  { text: "financial", italic: true },
-  { text: "decisions", italic: true },
-  { text: "easier." },
-];
-
 /* ── Stats data ── */
 const STATS = [
-  { value: 4, suffix: "+", label: "YEARS IN FINTECH" },
-  { value: 6, suffix: "+", label: "PRODUCTS SHIPPED" },
-  { value: 30, suffix: "%", label: "FASTER REPORTING" },
-  { value: 100, suffix: "%", label: "COMPLIANCE RATE" },
+  { value: 4, suffix: "h", label: "REPORTING CYCLE", from: "From 3 days" },
+  { value: 12, suffix: "", label: "MARKETS SHIPPED", from: "Country + cluster" },
+  { value: 20, suffix: "+", label: "DATA FEEDS UNIFIED", from: "20+ sources → 1 table" },
+  { value: 4, suffix: "+", label: "YEARS IN FINTECH", from: "SCB · IIT Delhi MBA" },
 ] as const;
 
 function StatItem({ stat, inView }: { stat: typeof STATS[number]; inView: boolean }) {
   const count = useCountUp(stat.value, 1400, inView);
   return (
-    <div className="py-5 text-center">
+    <div className="py-6 px-3 text-center">
+      <p
+        className="font-sans"
+        style={{
+          fontSize: 13,
+          letterSpacing: "0.04em",
+          color: "#6B6560",
+          marginBottom: 6,
+          minHeight: 18,
+        }}
+      >
+        {stat.from}
+      </p>
       <p
         className="font-display leading-none"
-        style={{ fontSize: "clamp(26px, 4vw, 32px)", color: "#3B6B4F" }}
+        style={{ fontSize: "clamp(30px, 4vw, 38px)", color: "#3B6B4F" }}
       >
         {count}
         {stat.suffix}
@@ -80,9 +66,9 @@ function StatItem({ stat, inView }: { stat: typeof STATS[number]; inView: boolea
       <p
         className="font-sans mt-2"
         style={{
-          fontSize: 11,
+          fontSize: 13,
           letterSpacing: "0.08em",
-          color: "#9B9590",
+          color: "#6B6560",
         }}
       >
         {stat.label}
@@ -105,106 +91,100 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="mx-auto w-full max-w-3xl px-6 py-16 md:py-24"
+        className="mx-auto w-full max-w-6xl px-6 py-16 md:py-24"
       >
-        {/* Eyebrow */}
-        <motion.p
-          variants={fadeUp}
-          className="font-sans font-medium"
-          style={{
-            fontSize: 12,
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#3B6B4F",
-            marginBottom: 20,
-          }}
-        >
-          Product Manager
-        </motion.p>
-
-        {/* Headline — word-by-word reveal */}
-        <motion.h1
-          variants={headlineContainer}
-          className="font-display"
-          style={{
-            fontSize: "clamp(32px, 5vw, 48px)",
-            lineHeight: 1.15,
-            color: "#1A1A1A",
-            marginBottom: 20,
-          }}
-        >
-          {HEADLINE_WORDS.map((w, i) => (
-            <motion.span
-              key={i}
-              variants={wordUp}
+        {/* ── Two-column layout ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+          {/* Left column — eyebrow + big name */}
+          <div>
+            <motion.p
+              variants={fadeUp}
+              className="font-sans font-medium"
               style={{
-                display: "inline-block",
-                marginRight: "0.28em",
-                fontStyle: w.italic ? "italic" : "normal",
+                fontSize: 14,
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+                color: "#6B6560",
+                marginBottom: 20,
               }}
             >
-              {w.text}
-            </motion.span>
-          ))}
-        </motion.h1>
+              Hey there,
+            </motion.p>
 
-        {/* Subtitle */}
-        <motion.p
-          variants={fadeUp}
-          className="font-sans"
-          style={{
-            fontSize: 16,
-            lineHeight: 1.7,
-            color: "#6B6560",
-            maxWidth: 500,
-            marginBottom: 32,
-          }}
-        >
-          4+ years in credit risk at Standard Chartered Bank. MBA from IIT Delhi.
-          Now building AI-powered products that solve real problems.
-        </motion.p>
+            <motion.h1
+              variants={fadeUp}
+              className="font-display"
+              style={{
+                fontSize: "clamp(40px, 5.5vw, 60px)",
+                lineHeight: 1.05,
+                color: "#1A1A1A",
+              }}
+            >
+              I'm Bhautik
+              <br />
+              Patel.
+            </motion.h1>
+          </div>
 
-        {/* CTA buttons */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4 mb-16">
-          <button
-            onClick={() => {
-              const el = document.getElementById("projects");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="font-sans font-medium text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
-            style={{
-              fontSize: 14,
-              backgroundColor: "#3B6B4F",
-              borderRadius: 100,
-              padding: "12px 28px",
-            }}
-          >
-            View my work →
-          </button>
-          <a
-            href={RESUME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-sans font-medium transition-all duration-200 hover:opacity-70"
-            style={{
-              fontSize: 14,
-              color: "#1A1A1A",
-              borderRadius: 100,
-              padding: "11px 28px",
-              border: "1px solid #DDD8D2",
-              textDecoration: "none",
-            }}
-          >
-            Download resume
-          </a>
-        </motion.div>
+          {/* Right column — description + CTA */}
+          <div className="flex flex-col justify-center md:pt-12">
+            <motion.p
+              variants={fadeUp}
+              className="font-sans"
+              style={{
+                fontSize: 18,
+                lineHeight: 1.75,
+                color: "#3E3935",
+                marginBottom: 32,
+              }}
+            >
+              A product manager shaping fintech through credit risk automation,
+              AI-powered tooling, and data-driven delivery. Currently at
+              Standard Chartered Bank. MBA from IIT Delhi.
+            </motion.p>
 
-        {/* Stats bar — 2×2 grid on mobile, 4-col row on tablet+.
-            Grid gap + dark bg renders as thin 1px separators. */}
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => {
+                  const el = document.getElementById("projects");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="font-sans font-medium transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+                style={{
+                  fontSize: 16,
+                  color: "#FFFFFF",
+                  backgroundColor: "#1A1A1A",
+                  borderRadius: 100,
+                  padding: "14px 32px",
+                }}
+              >
+                View my work →
+              </button>
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans font-medium transition-all duration-200 hover:opacity-70"
+                style={{
+                  fontSize: 16,
+                  color: "#1A1A1A",
+                  borderRadius: 100,
+                  padding: "13px 32px",
+                  border: "1px solid #DDD8D2",
+                  textDecoration: "none",
+                }}
+              >
+                Download resume
+              </a>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Stats bar — full width below ── */}
         <motion.div
           ref={statsRef}
           variants={fadeUp}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-px"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-px mt-20 md:mt-28"
           style={{
             backgroundColor: "#DDD8D2",
             borderTop: "0.5px solid #DDD8D2",

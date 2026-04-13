@@ -3,6 +3,7 @@ import Marquee from "../components/Marquee";
 import Capabilities from "../components/Capabilities";
 import Projects from "../components/Projects";
 import Experience from "../components/Experience";
+import Education from "../components/Education";
 import Footer from "../components/Footer";
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
         <Capabilities />
         <Projects />
         <Experience />
+        <Education />
       </main>
       <Footer />
     </>
