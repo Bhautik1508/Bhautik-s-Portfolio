@@ -1,15 +1,17 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 
 import Navbar from "./components/Navbar";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import HomePage from "./pages/HomePage";
-import GiftSensePage from "./pages/GiftSensePage";
-import StockSagePage from "./pages/StockSagePage";
-import RiskReportingPage from "./pages/RiskReportingPage";
-import ChatGPTVoicePage from "./pages/ChatGPTVoicePage";
-import AddivityPage from "./pages/AddivityPage";
+
+/* Lazy-load case study pages — they're 500-900 lines each and only visited on click */
+const GiftSensePage = lazy(() => import("./pages/GiftSensePage"));
+const StockSagePage = lazy(() => import("./pages/StockSagePage"));
+const RiskReportingPage = lazy(() => import("./pages/RiskReportingPage"));
+const ChatGPTVoicePage = lazy(() => import("./pages/ChatGPTVoicePage"));
+const AddivityPage = lazy(() => import("./pages/AddivityPage"));
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
@@ -35,6 +37,24 @@ function ScrollToTop() {
   return null;
 }
 
+function NotFound() {
+  return (
+    <div className="flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "80vh" }}>
+      <h1 className="font-display" style={{ fontSize: 48, color: "#1A1A1A", marginBottom: 12 }}>404</h1>
+      <p className="font-sans" style={{ fontSize: 18, color: "#3E3935", marginBottom: 32 }}>
+        This page doesn't exist.
+      </p>
+      <Link
+        to="/"
+        className="font-sans font-medium text-white transition-opacity hover:opacity-90"
+        style={{ backgroundColor: "#3B6B4F", borderRadius: 100, padding: "12px 28px", fontSize: 15, textDecoration: "none" }}
+      >
+        Back to home
+      </Link>
+    </div>
+  );
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -46,14 +66,17 @@ function AnimatedRoutes() {
         animate="animate"
         exit="exit"
       >
-        <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/projects/giftsense" element={<GiftSensePage />} />
-          <Route path="/projects/stocksage" element={<StockSagePage />} />
-          <Route path="/projects/risk-reporting" element={<RiskReportingPage />} />
-          <Route path="/projects/chatgpt-voice" element={<ChatGPTVoicePage />} />
-          <Route path="/projects/addivity" element={<AddivityPage />} />
-        </Routes>
+        <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+          <Routes location={location}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/projects/giftsense" element={<GiftSensePage />} />
+            <Route path="/projects/stocksage" element={<StockSagePage />} />
+            <Route path="/projects/risk-reporting" element={<RiskReportingPage />} />
+            <Route path="/projects/chatgpt-voice" element={<ChatGPTVoicePage />} />
+            <Route path="/projects/addivity" element={<AddivityPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </motion.div>
     </AnimatePresence>
   );
