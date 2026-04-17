@@ -28,23 +28,37 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const scrollTo = (href: string) => {
+    const wasMobileOpen = mobileOpen;
     setMobileOpen(false);
     if (location.pathname !== "/") {
-      // Navigate to home with hash — ScrollToTop will handle the scroll.
       navigate(`/${href}`);
       return;
     }
     const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    };
+    // Delay scroll so body overflow resets after menu close animation
+    if (wasMobileOpen) {
+      setTimeout(doScroll, 300);
+    } else {
+      doScroll();
+    }
   };
 
   const goHome = () => {
+    const wasMobileOpen = mobileOpen;
     setMobileOpen(false);
     if (location.pathname !== "/") {
       navigate("/");
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      const doScroll = () => window.scrollTo({ top: 0, behavior: "smooth" });
+      if (wasMobileOpen) {
+        setTimeout(doScroll, 300);
+      } else {
+        doScroll();
+      }
     }
   };
 
