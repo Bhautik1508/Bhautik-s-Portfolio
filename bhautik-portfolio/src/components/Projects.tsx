@@ -235,7 +235,6 @@ const PROJECTS: ProjectCard[] = [
         label: "Live product \u2192",
         href: "https://agentic-workflow-analysis-for-india.vercel.app/",
         external: true,
-        color: "#1E3C72",
       },
       {
         type: "route",
@@ -273,7 +272,6 @@ const PROJECTS: ProjectCard[] = [
         label: "Prototype \u2192",
         href: "https://www.figma.com/make/iGxSO2TFLYeZ708eBjU6s9/Design-Inline-Voice-Nudge",
         external: true,
-        color: "#0D7C5F",
       },
       {
         type: "outlined",

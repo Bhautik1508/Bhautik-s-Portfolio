@@ -269,7 +269,7 @@ export default function StockSagePage() {
                 investor with a stock ticker.
               </p>
 
-              <div className="grid grid-cols-3 gap-3 mt-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
                 {[
                   { value: "hrs → 30s", label: "Research time" },
                   { value: "6", label: "AI agents" },

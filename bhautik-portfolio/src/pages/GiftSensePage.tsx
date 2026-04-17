@@ -396,7 +396,7 @@ export default function GiftSensePage() {
             >
               GiftSense case study
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <a
                 href="https://giftsense-rust.vercel.app/"
                 target="_blank"
@@ -411,7 +411,7 @@ export default function GiftSensePage() {
                   textDecoration: "none",
                 }}
               >
-                🔗 Live product
+                Live product
               </a>
               <a
                 href="https://drive.google.com/file/d/1c71DlfbqEva7-DVafRnDrgaYC7ynxUFy/view?usp=drive_link"
@@ -427,7 +427,7 @@ export default function GiftSensePage() {
                   textDecoration: "none",
                 }}
               >
-                📎 Presentation deck
+                Presentation
               </a>
             </div>
           </div>
@@ -720,7 +720,7 @@ export default function GiftSensePage() {
                 {ARCH_LAYERS.map((l, i) => (
                   <div
                     key={l.id}
-                    className="grid grid-cols-12 gap-3 py-3 px-4"
+                    className="py-3 px-4"
                     style={{
                       backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FBF8F4",
                       borderBottom:
@@ -729,24 +729,26 @@ export default function GiftSensePage() {
                           : undefined,
                     }}
                   >
-                    <span
-                      className="font-sans font-medium col-span-2"
-                      style={{ fontSize: 13, color: "#3B6B4F" }}
-                    >
-                      {l.id}
-                    </span>
-                    <span
-                      className="font-sans font-medium col-span-3"
-                      style={{ fontSize: 14, color: "#1A1A1A" }}
-                    >
-                      {l.name}
-                    </span>
-                    <span
-                      className="font-sans col-span-7"
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span
+                        className="font-sans font-medium"
+                        style={{ fontSize: 13, color: "#3B6B4F" }}
+                      >
+                        {l.id}
+                      </span>
+                      <span
+                        className="font-sans font-medium"
+                        style={{ fontSize: 14, color: "#1A1A1A" }}
+                      >
+                        {l.name}
+                      </span>
+                    </div>
+                    <p
+                      className="font-sans"
                       style={{ fontSize: 14, color: "#3E3935" }}
                     >
                       {l.role}
-                    </span>
+                    </p>
                   </div>
                 ))}
               </div>

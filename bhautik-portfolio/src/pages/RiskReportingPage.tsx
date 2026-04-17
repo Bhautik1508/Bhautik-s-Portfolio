@@ -467,7 +467,7 @@ export default function RiskReportingPage() {
                 {LAYERS.map((l, i) => (
                   <div
                     key={l.id}
-                    className="grid grid-cols-12 gap-3 py-3 px-4"
+                    className="py-3 px-4"
                     style={{
                       backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FBF8F4",
                       borderBottom:
@@ -476,24 +476,26 @@ export default function RiskReportingPage() {
                           : undefined,
                     }}
                   >
-                    <span
-                      className="font-sans font-medium col-span-2"
-                      style={{ fontSize: 13, color: "#3B6B4F" }}
-                    >
-                      {l.id}
-                    </span>
-                    <span
-                      className="font-sans font-medium col-span-4"
-                      style={{ fontSize: 14, color: "#1A1A1A" }}
-                    >
-                      {l.name}
-                    </span>
-                    <span
-                      className="font-sans col-span-6"
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span
+                        className="font-sans font-medium"
+                        style={{ fontSize: 13, color: "#3B6B4F" }}
+                      >
+                        {l.id}
+                      </span>
+                      <span
+                        className="font-sans font-medium"
+                        style={{ fontSize: 14, color: "#1A1A1A" }}
+                      >
+                        {l.name}
+                      </span>
+                    </div>
+                    <p
+                      className="font-sans"
                       style={{ fontSize: 14, color: "#3E3935" }}
                     >
                       {l.role}
-                    </span>
+                    </p>
                   </div>
                 ))}
               </div>
@@ -501,65 +503,67 @@ export default function RiskReportingPage() {
 
             {/* 08 – Before / after */}
             <Block number="08" title="Before / After">
-              <div className="overflow-hidden" style={{ border: "0.5px solid #DDD8D2", borderRadius: 10 }}>
-                <div
-                  className="grid grid-cols-3 py-3 px-4"
-                  style={{
-                    backgroundColor: "#EDE8E1",
-                    borderBottom: "0.5px solid #DDD8D2",
-                  }}
-                >
-                  <span
-                    className="font-sans font-medium"
-                    style={{ fontSize: 12, color: "#9B9590", textTransform: "uppercase", letterSpacing: "1px" }}
-                  >
-                    Step
-                  </span>
-                  <span
-                    className="font-sans font-medium"
-                    style={{ fontSize: 12, color: "#9B9590", textTransform: "uppercase", letterSpacing: "1px" }}
-                  >
-                    Before
-                  </span>
-                  <span
-                    className="font-sans font-medium"
-                    style={{ fontSize: 12, color: "#3B6B4F", textTransform: "uppercase", letterSpacing: "1px" }}
-                  >
-                    After
-                  </span>
-                </div>
-                {BEFORE_AFTER.map((row, i) => (
+              <div className="overflow-x-auto" style={{ border: "0.5px solid #DDD8D2", borderRadius: 10 }}>
+                <div style={{ minWidth: 480 }}>
                   <div
-                    key={row.label}
                     className="grid grid-cols-3 py-3 px-4"
                     style={{
-                      backgroundColor: "#FFFFFF",
-                      borderBottom:
-                        i < BEFORE_AFTER.length - 1
-                          ? "0.5px solid #DDD8D2"
-                          : undefined,
+                      backgroundColor: "#EDE8E1",
+                      borderBottom: "0.5px solid #DDD8D2",
                     }}
                   >
                     <span
                       className="font-sans font-medium"
-                      style={{ fontSize: 14, color: "#1A1A1A" }}
+                      style={{ fontSize: 12, color: "#9B9590", textTransform: "uppercase", letterSpacing: "1px" }}
                     >
-                      {row.label}
+                      Step
                     </span>
                     <span
-                      className="font-sans"
-                      style={{ fontSize: 14, color: "#9B9590" }}
+                      className="font-sans font-medium"
+                      style={{ fontSize: 12, color: "#9B9590", textTransform: "uppercase", letterSpacing: "1px" }}
                     >
-                      {row.before}
+                      Before
                     </span>
                     <span
-                      className="font-sans"
-                      style={{ fontSize: 14, color: "#3B6B4F", fontWeight: 500 }}
+                      className="font-sans font-medium"
+                      style={{ fontSize: 12, color: "#3B6B4F", textTransform: "uppercase", letterSpacing: "1px" }}
                     >
-                      {row.after}
+                      After
                     </span>
                   </div>
-                ))}
+                  {BEFORE_AFTER.map((row, i) => (
+                    <div
+                      key={row.label}
+                      className="grid grid-cols-3 py-3 px-4"
+                      style={{
+                        backgroundColor: "#FFFFFF",
+                        borderBottom:
+                          i < BEFORE_AFTER.length - 1
+                            ? "0.5px solid #DDD8D2"
+                            : undefined,
+                      }}
+                    >
+                      <span
+                        className="font-sans font-medium"
+                        style={{ fontSize: 14, color: "#1A1A1A" }}
+                      >
+                        {row.label}
+                      </span>
+                      <span
+                        className="font-sans"
+                        style={{ fontSize: 14, color: "#9B9590" }}
+                      >
+                        {row.before}
+                      </span>
+                      <span
+                        className="font-sans"
+                        style={{ fontSize: 14, color: "#3B6B4F", fontWeight: 500 }}
+                      >
+                        {row.after}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </Block>
 
@@ -583,7 +587,7 @@ export default function RiskReportingPage() {
                 across the rollout.
               </p>
 
-              <div className="grid grid-cols-3 gap-3 mt-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
                 {[
                   { value: "3d \u2192 4h", label: "Cycle time" },
                   { value: "12", label: "Markets" },

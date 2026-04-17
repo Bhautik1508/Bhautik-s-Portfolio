@@ -293,7 +293,7 @@ export default function ChatGPTVoicePage() {
             >
               ChatGPT Voice case study
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <a
                 href="https://www.figma.com/make/iGxSO2TFLYeZ708eBjU6s9/Design-Inline-Voice-Nudge"
                 target="_blank"
@@ -302,7 +302,7 @@ export default function ChatGPTVoicePage() {
                 style={{
                   fontSize: 12,
                   color: "#FFFFFF",
-                  backgroundColor: "#0D7C5F",
+                  backgroundColor: "#3B6B4F",
                   borderRadius: 100,
                   padding: "6px 14px",
                   textDecoration: "none",
@@ -318,7 +318,7 @@ export default function ChatGPTVoicePage() {
                 style={{
                   fontSize: 12,
                   color: "#FFFFFF",
-                  backgroundColor: "#0D7C5F",
+                  backgroundColor: "#3B6B4F",
                   borderRadius: 100,
                   padding: "6px 14px",
                   textDecoration: "none",
@@ -612,7 +612,7 @@ export default function ChatGPTVoicePage() {
                   style={{
                     fontSize: 15,
                     color: "#FFFFFF",
-                    backgroundColor: "#0D7C5F",
+                    backgroundColor: "#3B6B4F",
                     borderRadius: 100,
                     padding: "12px 28px",
                     textDecoration: "none",

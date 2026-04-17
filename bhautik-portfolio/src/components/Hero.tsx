@@ -153,7 +153,7 @@ export default function Hero() {
                 style={{
                   fontSize: 16,
                   color: "#FFFFFF",
-                  backgroundColor: "#1A1A1A",
+                  backgroundColor: "#3B6B4F",
                   borderRadius: 100,
                   padding: "14px 32px",
                 }}

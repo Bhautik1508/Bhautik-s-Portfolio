@@ -1,14 +1,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { renderDescription } from "../utils/renderDescription";
 
 interface Degree {
   institution: string;
   degree: string;
   location: string;
   dates: string;
-  description: string;
-  highlights: string[];
 }
 
 const DEGREES: Degree[] = [
@@ -16,19 +13,13 @@ const DEGREES: Degree[] = [
     institution: "Indian Institute of Technology, Delhi",
     degree: "MBA, Management",
     location: "New Delhi",
-    dates: "2020 \u2013 2022",
-    description:
-      "Specialised in product management and technology strategy. Built GiftSense as a capstone, taking the product from blank PRD to live MVP, covering user research, market sizing, LLM architecture and go-to-market.",
-    highlights: ["product management", "GiftSense"],
+    dates: "2019 \u2013 2021",
   },
   {
     institution: "LDRP Institute of Technology & Research",
-    degree: "B.E., Information Technology",
-    location: "Ahmedabad",
-    dates: "2015 \u2013 2019",
-    description:
-      "Core curriculum in data structures, databases, networking and software engineering. Founded Addivity during this period, leading an 80+ person team and closing 65+ corporate partnerships before graduating.",
-    highlights: ["Addivity", "80+", "65+"],
+    degree: "B.E., Mechanical Engineering",
+    location: "Gandhinagar",
+    dates: "2014 \u2013 2018",
   },
 ];
 
@@ -182,14 +173,6 @@ export default function Education() {
                     {deg.dates}
                   </p>
                 </div>
-
-                {/* Description */}
-                <p
-                  className="font-sans"
-                  style={{ fontSize: 16, lineHeight: 1.8, color: "#3E3935" }}
-                >
-                  {renderDescription(deg.description, deg.highlights)}
-                </p>
               </div>
             </motion.div>
           ))}

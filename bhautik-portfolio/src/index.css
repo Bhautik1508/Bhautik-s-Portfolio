@@ -102,28 +102,6 @@ button {
     0 4px 12px -6px rgba(26, 26, 26, 0.08);
 }
 
-/* ── Projects horizontal scroll ── */
-.projects-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #DDD8D2 transparent;
-  /* iOS momentum scrolling */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-}
-.projects-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-.projects-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.projects-scroll::-webkit-scrollbar-thumb {
-  background: #DDD8D2;
-  border-radius: 3px;
-}
-.projects-scroll::-webkit-scrollbar-thumb:hover {
-  background: #C4C0B7;
-}
-
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *,
