@@ -244,7 +244,7 @@ export default function ChatGPTVoicePage() {
               Growth PM &middot; User Research &middot; ChatGPT
             </p>
             <h1
-              className="font-display"
+              className="font-serifDisplay"
               style={{
                 fontSize: "clamp(36px, 5.5vw, 54px)",
                 lineHeight: 1.15,

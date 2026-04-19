@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import GiftSenseFunnel from "../components/diagrams/GiftSenseFunnel";
 
 /* ── Animation variants ── */
 const container = {
@@ -349,7 +350,7 @@ export default function GiftSensePage() {
               0‑to‑1 · AI / LLM · Consumer
             </p>
             <h1
-              className="font-display"
+              className="font-serifDisplay"
               style={{
                 fontSize: "clamp(36px, 5.5vw, 54px)",
                 lineHeight: 1.15,
@@ -652,8 +653,21 @@ export default function GiftSensePage() {
               <ComparisonGrid />
             </Block>
 
-            {/* 07 – Solution */}
-            <Block number="07" title="Solution: 3 options, RICE-scored">
+            {/* 07 – Multi-signal funnel — placed after competitive moat (what
+                 makes GiftSense different) and before solution detail (how we
+                 scored options), to visually show how signals converge into
+                 confidence-ranked recommendations */}
+            <Block number="07" title="How multi-signal profiling works">
+              <p>
+                Three signal types collapse into a single confidence-ranked
+                recommendation list. The higher the signal overlap, the
+                stronger the confidence score:
+              </p>
+              <GiftSenseFunnel />
+            </Block>
+
+            {/* 08 – Solution */}
+            <Block number="08" title="Solution: 3 options, RICE-scored">
               <p>
                 Evaluated three solution shapes using RICE.{" "}
                 <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
@@ -706,8 +720,8 @@ export default function GiftSensePage() {
               </div>
             </Block>
 
-            {/* 08 – System architecture */}
-            <Block number="08" title="System architecture">
+            {/* 09 – System architecture */}
+            <Block number="09" title="System architecture">
               <p>
                 Built as five thin layers so I could swap models, prompts or
                 signal sources without rewriting the product:
@@ -754,8 +768,8 @@ export default function GiftSensePage() {
               </div>
             </Block>
 
-            {/* 09 – Metric framework */}
-            <Block number="09" title="Metric framework">
+            {/* 10 – Metric framework */}
+            <Block number="10" title="Metric framework">
               <p>
                 One North Star, three supporting tiers, plus guardrails so I
                 don&rsquo;t optimise quality away in pursuit of clicks:
@@ -810,8 +824,8 @@ export default function GiftSensePage() {
               </div>
             </Block>
 
-            {/* 10 – Risks */}
-            <Block number="10" title="Risks & mitigations">
+            {/* 11 – Risks */}
+            <Block number="11" title="Risks & mitigations">
               <div className="mt-2 flex flex-col gap-3">
                 {RISKS.map((r) => (
                   <div
@@ -843,8 +857,8 @@ export default function GiftSensePage() {
               </div>
             </Block>
 
-            {/* 11 – Revenue & distribution */}
-            <Block number="11" title="Revenue model & distribution">
+            {/* 12 – Revenue & distribution */}
+            <Block number="12" title="Revenue model & distribution">
               <p>
                 Affiliate commerce on{" "}
                 <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
@@ -859,8 +873,8 @@ export default function GiftSensePage() {
               </p>
             </Block>
 
-            {/* 12 – PM lessons */}
-            <Block number="12" title="PM lessons that transferred">
+            {/* 13 – PM lessons */}
+            <Block number="13" title="PM lessons that transferred">
               <ul className="flex flex-col gap-2 pl-4" style={{ listStyle: "disc" }}>
                 <li>
                   <span style={{ color: "#1A1A1A", fontWeight: 500 }}>

@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { track } from "@vercel/analytics";
 import { RESUME_URL } from "../config/site";
 
 /* ── Count-up hook ── */
@@ -164,6 +165,7 @@ export default function Hero() {
                 href={RESUME_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("resume_download", { source: "hero" })}
                 className="font-sans font-medium transition-all duration-200 hover:opacity-70"
                 style={{
                   fontSize: 16,

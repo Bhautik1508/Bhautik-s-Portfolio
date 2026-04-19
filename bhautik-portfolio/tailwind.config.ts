@@ -19,8 +19,9 @@ const config: Config = {
         surface:      "#FFFFFF",
       },
       fontFamily: {
-        display: ['"DM Sans"', "system-ui", "sans-serif"],
-        sans:    ['"DM Sans"', "system-ui", "sans-serif"],
+        display:      ['"DM Sans"', "system-ui", "sans-serif"],
+        sans:         ['"DM Sans"', "system-ui", "sans-serif"],
+        serifDisplay: ['"Instrument Serif"', "Georgia", "serif"],
       },
     },
   },

@@ -2,6 +2,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import RiskPipelineDiagram from "../components/diagrams/RiskPipelineDiagram";
+import PPTLayersDiagram from "../components/diagrams/PPTLayersDiagram";
 
 const container = {
   hidden: {},
@@ -95,54 +97,6 @@ const ROADMAP = [
   { step: "Self-Service", body: "Ship a self-service tool so analysts run packs on demand." },
 ];
 
-/* ── 3-phase architecture ── */
-const PHASES = [
-  {
-    id: "Phase 1",
-    title: "Ingestion Pipeline",
-    body: "Pulls daily slices from 20+ upstream credit and reference systems into a governed staging layer with lineage and quality checks.",
-  },
-  {
-    id: "Phase 2",
-    title: "Master Unified Table",
-    body: "Joins transactions, limits, mitigants and client reference data into one tranche-level master table. The single source for every downstream report.",
-  },
-  {
-    id: "Phase 3",
-    title: "PPT Automation",
-    body: "Renders templated decks straight from the master table using python-pptx and Claude-drafted commentary, country by country.",
-  },
-];
-
-/* ── 5-layer PPT automation ── */
-const LAYERS = [
-  {
-    id: "L1",
-    name: "User Interface",
-    role: "Pack selector + run trigger for analysts.",
-  },
-  {
-    id: "L2",
-    name: "Orchestration",
-    role: "Sequences slides, pulls data, calls the LLM, assembles output.",
-  },
-  {
-    id: "L3",
-    name: "Slide Design Library",
-    role: "Reusable python-pptx components: charts, tables, callouts.",
-  },
-  {
-    id: "L4",
-    name: "Domain Function Catalogue",
-    role: "Risk-specific metric calculations and formatting rules.",
-  },
-  {
-    id: "L5",
-    name: "Data Layer",
-    role: "Reads from the master tables. No direct upstream coupling.",
-  },
-];
-
 const BEFORE_AFTER = [
   { label: "Data extraction", before: "Manual SQL + Excel", after: "Governed pipelines" },
   { label: "Slide creation", before: "3 days per pack", after: "4 hours per pack" },
@@ -182,7 +136,7 @@ export default function RiskReportingPage() {
               Standard Chartered · Credit Risk · Enterprise
             </p>
             <h1
-              className="font-display"
+              className="font-serifDisplay"
               style={{
                 fontSize: "clamp(36px, 5.5vw, 54px)",
                 lineHeight: 1.15,
@@ -401,44 +355,7 @@ export default function RiskReportingPage() {
                 exists.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
-                {PHASES.map((p) => (
-                  <div
-                    key={p.id}
-                    className="p-4"
-                    style={{
-                      backgroundColor: "#FFFFFF",
-                      border: "0.5px solid #DDD8D2",
-                      borderRadius: 10,
-                    }}
-                  >
-                    <p
-                      className="font-sans font-medium"
-                      style={{
-                        fontSize: 12,
-                        color: "#9B9590",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                        marginBottom: 4,
-                      }}
-                    >
-                      {p.id}
-                    </p>
-                    <h4
-                      className="font-sans font-medium"
-                      style={{ fontSize: 15, color: "#3B6B4F", marginBottom: 6 }}
-                    >
-                      {p.title}
-                    </h4>
-                    <p
-                      className="font-sans"
-                      style={{ fontSize: 15, lineHeight: 1.65, color: "#3E3935" }}
-                    >
-                      {p.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <RiskPipelineDiagram />
             </Block>
 
             {/* 06 – Master table pattern */}
@@ -463,42 +380,7 @@ export default function RiskReportingPage() {
                 pipelines never have to touch python-pptx:
               </p>
 
-              <div className="mt-5 overflow-hidden" style={{ border: "0.5px solid #DDD8D2", borderRadius: 10 }}>
-                {LAYERS.map((l, i) => (
-                  <div
-                    key={l.id}
-                    className="py-3 px-4"
-                    style={{
-                      backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FBF8F4",
-                      borderBottom:
-                        i < LAYERS.length - 1
-                          ? "0.5px solid #DDD8D2"
-                          : undefined,
-                    }}
-                  >
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span
-                        className="font-sans font-medium"
-                        style={{ fontSize: 13, color: "#3B6B4F" }}
-                      >
-                        {l.id}
-                      </span>
-                      <span
-                        className="font-sans font-medium"
-                        style={{ fontSize: 14, color: "#1A1A1A" }}
-                      >
-                        {l.name}
-                      </span>
-                    </div>
-                    <p
-                      className="font-sans"
-                      style={{ fontSize: 14, color: "#3E3935" }}
-                    >
-                      {l.role}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <PPTLayersDiagram />
             </Block>
 
             {/* 08 – Before / after */}

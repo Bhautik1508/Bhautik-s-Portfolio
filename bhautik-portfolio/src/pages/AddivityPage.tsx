@@ -136,7 +136,7 @@ export default function AddivityPage() {
               0&#8209;to&#8209;1 Startup &middot; Co-founder &middot; EdTech
             </p>
             <h1
-              className="font-display"
+              className="font-serifDisplay"
               style={{
                 fontSize: "clamp(36px, 5.5vw, 54px)",
                 lineHeight: 1.15,

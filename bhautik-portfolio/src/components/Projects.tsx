@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { track } from "@vercel/analytics";
 
 /* ── Pill button components ── */
 function FilledPill({
@@ -90,15 +91,18 @@ function RoutedPill({
   label,
   borderColor = "#DDD8D2",
   textColor = "#3E3935",
+  onClick,
 }: {
   to: string;
   label: string;
   borderColor?: string;
   textColor?: string;
+  onClick?: () => void;
 }) {
   return (
     <Link
       to={to}
+      onClick={onClick}
       className="font-sans font-medium transition-opacity hover:opacity-70"
       style={{
         fontSize: 13,
@@ -550,6 +554,11 @@ export default function Projects() {
                           label={btn.label}
                           borderColor={btn.borderColor}
                           textColor={btn.textColor}
+                          onClick={
+                            btn.label === "Case study"
+                              ? () => track("case_study_opened", { project: project.title })
+                              : undefined
+                          }
                         />
                       );
                     }

@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import CaseStudyImage from "../components/CaseStudyImage";
 
 const container = {
   hidden: {},
@@ -96,7 +97,7 @@ export default function StockSagePage() {
               Multi-agent AI · LangGraph
             </p>
             <h1
-              className="font-display"
+              className="font-serifDisplay"
               style={{
                 fontSize: "clamp(36px, 5.5vw, 54px)",
                 lineHeight: 1.15,
@@ -239,6 +240,14 @@ export default function StockSagePage() {
                 ))}
               </div>
             </Block>
+
+            <motion.div variants={fadeUp} className="mb-16">
+              <CaseStudyImage
+                src="/stocksage-dashboard.png"
+                alt="StockSage dashboard showing multi-agent analysis output with fundamental, technical, and sentiment views"
+                caption="Multi-agent output: fundamental, technical, and sentiment views."
+              />
+            </motion.div>
 
             <Block number="04" title="Tech Stack">
               <p>
