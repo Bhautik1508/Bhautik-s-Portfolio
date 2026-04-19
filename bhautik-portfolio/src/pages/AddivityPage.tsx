@@ -184,18 +184,24 @@ export default function AddivityPage() {
             >
               Addivity case study
             </span>
-            <span
-              className="font-sans"
-              style={{
-                fontSize: 11,
-                color: "#9B9590",
-                backgroundColor: "#EDE8E1",
-                borderRadius: 100,
-                padding: "5px 12px",
-              }}
-            >
-              Exited &middot; Mar 2020 &ndash; Apr 2021
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href="/addivity-pitch-deck.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans font-medium transition-opacity hover:opacity-80"
+                style={{
+                  fontSize: 12,
+                  color: "#FFFFFF",
+                  backgroundColor: "#3B6B4F",
+                  borderRadius: 100,
+                  padding: "6px 14px",
+                  textDecoration: "none",
+                }}
+              >
+                Pitch deck
+              </a>
+            </div>
           </div>
         </div>
 

@@ -415,7 +415,7 @@ export default function GiftSensePage() {
                 Live product
               </a>
               <a
-                href="https://drive.google.com/file/d/1c71DlfbqEva7-DVafRnDrgaYC7ynxUFy/view?usp=drive_link"
+                href="/giftsense-presentation.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-sans font-medium transition-opacity hover:opacity-80"

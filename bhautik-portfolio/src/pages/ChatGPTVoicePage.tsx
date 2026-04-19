@@ -326,6 +326,22 @@ export default function ChatGPTVoicePage() {
               >
                 PRD
               </a>
+              <a
+                href="/chatgpt-voice-presentation.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans font-medium transition-opacity hover:opacity-80"
+                style={{
+                  fontSize: 12,
+                  color: "#FFFFFF",
+                  backgroundColor: "#3B6B4F",
+                  borderRadius: 100,
+                  padding: "6px 14px",
+                  textDecoration: "none",
+                }}
+              >
+                Presentation
+              </a>
             </div>
           </div>
         </div>
