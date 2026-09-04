@@ -11,7 +11,7 @@ interface Degree {
 const DEGREES: Degree[] = [
   {
     institution: "Indian Institute of Technology, Delhi",
-    degree: "MBA, Management",
+    degree: "MBA, Product Management",
     location: "New Delhi",
     dates: "2019 \u2013 2021",
   },

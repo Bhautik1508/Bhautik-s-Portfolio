@@ -7,10 +7,21 @@ const CARDS = [
     items: [
       "Roadmaps, PRDs & specs",
       "RICE / North Star metrics",
-      "User research & surveys",
+      "User research & discovery",
       "Stakeholder management",
       "0\u20111 and scale-up GTM",
-      "AI / LLM product design",
+      "Product design & A/B testing",
+    ],
+  },
+  {
+    title: "AI & agentic systems",
+    items: [
+      "Agentic AI & multi-agent systems",
+      "AI observability & governance",
+      "LLM product design",
+      "RAG, knowledge graphs & ontology",
+      "Evals & prompt engineering",
+      "Human-in-the-loop design",
     ],
   },
   {
@@ -18,21 +29,10 @@ const CARDS = [
     items: [
       "Credit risk & risk appetite",
       "Basel III / IV \u00b7 IFRS 9",
-      "Regulatory reporting",
-      "Hadoop data lake & lineage",
-      "Model & data quality controls",
-      "Audit and compliance evidencing",
-    ],
-  },
-  {
-    title: "Data & analytics",
-    items: [
-      "SQL, Python (pandas)",
-      "Tableau & dashboarding",
-      "KPI design & A/B testing",
-      "Reconciliation & data QA",
-      "python-pptx, Claude / Gemini API",
-      "Prompt engineering & LangGraph",
+      "Regulatory reporting & compliance",
+      "Payments, lending & cards",
+      "Digital onboarding & KYC/AML",
+      "Data quality, lineage & controls",
     ],
   },
 ];
@@ -108,8 +108,9 @@ export default function Capabilities() {
             marginBottom: 48,
           }}
         >
-          From regulated banking systems to 0‑to‑1 AI products. Deep fintech
-          domain knowledge paired with hands-on data and product craft.
+          From enterprise agentic AI platforms to regulated banking systems.
+          Deep fintech domain knowledge paired with hands-on AI and product
+          craft.
         </motion.p>
 
         {/* 3-column cards grid */}

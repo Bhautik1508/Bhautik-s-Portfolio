@@ -57,8 +57,9 @@ export default function Footer() {
               marginBottom: 32,
             }}
           >
-            Exploring PM roles in fintech. If you're building in payments,
-            lending, credit risk or wealth management, let's talk.
+            Looking to build AI-native platform or fintech products at scale.
+            If you're working on agentic AI, payments, lending or credit risk,
+            let's talk.
           </motion.p>
           <motion.div
             variants={fadeUp}

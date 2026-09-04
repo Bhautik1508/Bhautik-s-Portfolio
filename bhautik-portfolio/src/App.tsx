@@ -7,6 +7,7 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import HomePage from "./pages/HomePage";
 
 /* Lazy-load case study pages — they're 500-900 lines each and only visited on click */
+const AdamPage = lazy(() => import("./pages/AdamPage"));
 const GiftSensePage = lazy(() => import("./pages/GiftSensePage"));
 const StockSagePage = lazy(() => import("./pages/StockSagePage"));
 const RiskReportingPage = lazy(() => import("./pages/RiskReportingPage"));
@@ -69,6 +70,7 @@ function AnimatedRoutes() {
         <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
           <Routes location={location}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/projects/adam-control-tower" element={<AdamPage />} />
             <Route path="/projects/giftsense" element={<GiftSensePage />} />
             <Route path="/projects/stocksage" element={<StockSagePage />} />
             <Route path="/projects/risk-reporting" element={<RiskReportingPage />} />

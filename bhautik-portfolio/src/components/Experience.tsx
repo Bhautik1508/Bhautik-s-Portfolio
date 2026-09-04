@@ -13,10 +13,26 @@ interface Role {
 
 const ROLES: Role[] = [
   {
+    company: "Brillio",
+    title: "AI Product Manager, ADAM",
+    location: "Bengaluru",
+    dates: "Jul 2026 \u2013 Present",
+    description:
+      "Own core platform capabilities on ADAM, an enterprise agentic AI platform. Built the Control Tower, a single observability and governance surface monitoring every deployed agent across 7 dimensions, cutting incident triage from hours to under 30 minutes and giving platform owners per-agent cost attribution for the first time. Shipped Semantic Fabric, the governed ontology and knowledge graph layer, lifting retrieval accuracy ~25% and cutting onboarding effort for new agent use cases ~30%. Led the platform-wide UX rebuild across 7 modules and 5 personas, cutting task-completion time ~35%. Drove an enterprise pursuit for a large US commercial bank end to end, contributing to an $800K win.",
+    highlights: [
+      "7 dimensions",
+      "hours to under 30 minutes",
+      "~25%",
+      "~30%",
+      "~35%",
+      "$800K",
+    ],
+  },
+  {
     company: "Standard Chartered Bank",
     title: "Product Manager, Credit Risk",
     location: "Bengaluru",
-    dates: "Sep 2022 \u2013 Present",
+    dates: "Sep 2022 \u2013 Jun 2026",
     description:
       "Cut country/cluster risk appetite reporting from 3 days to 4 hours by replacing manual SQL+Excel pipelines with python-pptx, pandas and Claude API, freeing analysts for insight work across 12 markets. Led 4 credit risk programmes end-to-end at 100% regulatory compliance, owning 20+ upstream data feeds at 90%+ data quality. Promoted within 2 years for delivery impact.",
     highlights: ["3 days to 4 hours", "12 markets", "100%", "20+", "90%+"],

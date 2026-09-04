@@ -152,6 +152,34 @@ interface ProjectCard {
 
 const PROJECTS: ProjectCard[] = [
   {
+    gradientFrom: "#1F2933",
+    gradientTo: "#111827",
+    watermark: "ADAM Control Tower",
+    watermarkFont: "sans",
+    watermarkColor: "rgba(255,255,255,0.55)",
+    watermarkSize: 22,
+    watermarkLetterSpacing: "1px",
+    pills: [
+      { label: "Agentic AI", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "Brillio", bg: "#E8F0EB", color: "#3B6B4F" },
+      { label: "Enterprise", bg: "#E8F0EB", color: "#3B6B4F" },
+    ],
+    title: "ADAM: enterprise agentic AI platform",
+    description:
+      "Built the Control Tower, a single observability and governance surface for every deployed agent across 7 dimensions, plus Semantic Fabric, the governed ontology layer behind agent context.",
+    stats: [
+      { value: "hrs → 30min", label: "incident triage" },
+      { value: "7", label: "agent dimensions" },
+    ],
+    buttons: [
+      {
+        type: "route",
+        label: "Case study",
+        to: "/projects/adam-control-tower",
+      },
+    ],
+  },
+  {
     gradientFrom: "#EDE8E1",
     gradientTo: "#DDD8D0",
     watermark: "SCB Risk Packs",
@@ -389,8 +417,8 @@ export default function Projects() {
               maxWidth: 580,
             }}
           >
-            Side projects where I applied PM thinking end-to-end, from user
-            research to shipped product.
+            Platform and fintech products I've owned end-to-end, alongside side
+            projects taken from user research to shipped product.
           </motion.p>
         </motion.div>
 

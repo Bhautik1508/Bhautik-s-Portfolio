@@ -35,10 +35,10 @@ const fadeUp = {
 
 /* ── Stats data ── */
 const STATS = [
-  { value: 4, suffix: "h", label: "REPORTING CYCLE", from: "From 3 days" },
-  { value: 12, suffix: "", label: "MARKETS SHIPPED", from: "Country + cluster" },
-  { value: 20, suffix: "+", label: "DATA FEEDS UNIFIED", from: "20+ sources → 1 table" },
-  { value: 4, suffix: "+", label: "YEARS IN FINTECH", from: "SCB · IIT Delhi MBA" },
+  { prefix: "", value: 30, suffix: "min", label: "AGENT TRIAGE TIME", from: "From hours" },
+  { prefix: "$", value: 800, suffix: "K", label: "ENTERPRISE WIN", from: "Large US bank" },
+  { prefix: "", value: 12, suffix: "", label: "MARKETS SHIPPED", from: "Risk reporting at SCB" },
+  { prefix: "", value: 5, suffix: "+", label: "YEARS IN AI × FINTECH", from: "Brillio · IIT Delhi MBA" },
 ] as const;
 
 function StatItem({ stat, inView }: { stat: typeof STATS[number]; inView: boolean }) {
@@ -61,6 +61,7 @@ function StatItem({ stat, inView }: { stat: typeof STATS[number]; inView: boolea
         className="font-display leading-none"
         style={{ fontSize: "clamp(30px, 4vw, 38px)", color: "#3B6B4F" }}
       >
+        {stat.prefix}
         {count}
         {stat.suffix}
       </p>
@@ -139,9 +140,10 @@ export default function Hero() {
                 marginBottom: 32,
               }}
             >
-              A product manager shaping fintech through credit risk automation,
-              AI-powered tooling, and data-driven delivery. Currently at
-              Standard Chartered Bank. MBA from IIT Delhi.
+              A product manager building AI-native platforms and fintech
+              products end to end. Currently AI Product Manager on ADAM, an
+              enterprise agentic AI platform at Brillio. Previously credit
+              risk at Standard Chartered. MBA from IIT Delhi.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">

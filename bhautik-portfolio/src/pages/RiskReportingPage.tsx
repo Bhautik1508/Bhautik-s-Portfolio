@@ -349,10 +349,10 @@ export default function RiskReportingPage() {
             {/* 05 – 3-phase architecture */}
             <Block number="05" title="Architecture: 3-phase pipeline">
               <p>
-                The system is built as three composable phases. Each phase has
-                a clear contract, so Phase 3 doesn&rsquo;t care which upstream
-                systems Phase 1 reads from; only that the master table
-                exists.
+                The system was built as three composable phases. Each phase had
+                a clear contract, so Phase 3 didn&rsquo;t care which upstream
+                systems Phase 1 read from; only that the master table
+                existed.
               </p>
 
               <RiskPipelineDiagram />
@@ -469,11 +469,38 @@ export default function RiskReportingPage() {
                 across the rollout.
               </p>
 
+              <p style={{ marginTop: 16 }}>
+                The cycle time was the headline, but the durable win was
+                capacity: roughly{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
+                  15 analyst-hours freed per cycle
+                </span>
+                , and self-service dashboards for Nostro, Risk Appetite and
+                Large Exposure in front of{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
+                  50+ risk analysts across 20+ markets
+                </span>
+                , which cut ad-hoc data requests{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>~40%</span>.
+                End-to-end lineage lifted data completeness from{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
+                  ~70% to 92%
+                </span>{" "}
+                across 20+ feeds, shipped over{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
+                  30+ quarterly releases
+                </span>{" "}
+                against fixed engineering capacity and regulatory deadlines.
+              </p>
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
                 {[
                   { value: "3d \u2192 4h", label: "Cycle time" },
+                  { value: "~15h", label: "Analyst-hours freed" },
                   { value: "12", label: "Markets" },
+                  { value: "50+", label: "Analysts served" },
                   { value: "20+", label: "Source systems" },
+                  { value: "70\u219292%", label: "Data completeness" },
                 ].map((m) => (
                   <div
                     key={m.label}
@@ -529,19 +556,29 @@ export default function RiskReportingPage() {
                   <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
                     LLMs belong inside human review loops, not outside them.
                   </span>{" "}
-                  Claude drafts commentary; risk analysts still own the final
+                  Claude drafted the commentary; risk analysts kept the final
                   word and the regulatory accountability.
                 </li>
               </ul>
             </Block>
 
-            {/* 11 – Next turn */}
-            <Block number="11" title="Next Turn">
+            {/* 11 – Where it landed */}
+            <Block number="11" title="Where it landed">
               <p>
-                Extend the same pattern to market risk and operational risk
-                packs. Ship a self-service web layer so analysts can configure
-                and trigger packs on demand, closing the last gap between
-                question asked and pack delivered.
+                By the time I moved on in{" "}
+                <span style={{ color: "#1A1A1A", fontWeight: 500 }}>
+                  June 2026
+                </span>
+                , the platform was running across all 12 markets with the
+                self-service layer live for Nostro, Risk Appetite and Large
+                Exposure, and the master table established as the source every
+                downstream pack depended on.
+              </p>
+              <p style={{ marginTop: 16 }}>
+                The thread I&rsquo;d pick up again: extending the same
+                three-phase pattern to market and operational risk packs. The
+                template problem there is identical, and as with the first
+                rollout, standardising the vocabulary would be most of the job.
               </p>
             </Block>
 

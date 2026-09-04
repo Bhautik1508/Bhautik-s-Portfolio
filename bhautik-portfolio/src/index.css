@@ -81,7 +81,9 @@ button {
 
 .marquee-track {
   display: flex;
-  animation: marquee 28s linear infinite;
+  /* Duration is set per-instance from the item count (see Marquee.tsx) so the
+     scroll speed stays constant as skills are added or removed. */
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
   width: max-content;
   will-change: transform;
 }

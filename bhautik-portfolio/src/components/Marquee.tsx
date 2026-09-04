@@ -1,19 +1,37 @@
+/* Interleaved across AI / product / fintech / tools so the ticker reads varied
+   rather than clustered by category. */
 const SKILLS = [
+  "Agentic AI",
   "SQL",
-  "Figma",
-  "JIRA",
-  "Tableau",
-  "Hadoop",
-  "PRDs",
-  "RICE Framework",
-  "User Research",
-  "Agile / Scrum",
-  "Prompt Engineering",
-  "Go-to-Market",
-  "LLM Integration",
+  "Multi-Agent Systems",
   "Credit Risk",
-  "Confluence",
+  "LangGraph",
+  "PRDs",
+  "RAG",
+  "Regulatory Reporting",
+  "Knowledge Graphs",
+  "Figma",
+  "Evals",
+  "User Research",
+  "AI Governance",
+  "KYC/AML",
+  "Prompt Engineering",
+  "Python",
+  "Human-in-the-Loop",
+  "Payments & Lending",
+  "LLM Product Design",
+  "JIRA",
+  "RICE Framework",
+  "Tableau",
+  "Go-to-Market",
+  "Hadoop",
+  "Agile / Scrum",
 ];
+
+/* The track scrolls one full copy of the list (translateX(-50%)) per cycle, so
+   duration must scale with the item count to hold the speed steady. The
+   original 14 skills ran at 28s — 2s per item. */
+const MARQUEE_DURATION = `${SKILLS.length * 2}s`;
 
 export default function Marquee() {
   /* Duplicate for seamless loop */
@@ -29,7 +47,10 @@ export default function Marquee() {
       }}
       className="py-4"
     >
-      <div className="marquee-track">
+      <div
+        className="marquee-track"
+        style={{ "--marquee-duration": MARQUEE_DURATION } as React.CSSProperties}
+      >
         {items.map((skill, i) => (
           <span
             key={`${skill}-${i}`}

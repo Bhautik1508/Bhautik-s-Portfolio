@@ -1,69 +1,108 @@
 # Bhautik Patel
 
-**Product Manager · Credit Risk & AI Products**
-Bengaluru, India · [bhautik-patel-portfolio.com] · linkedin.com/in/bhautikpatel · github.com/bhautikpatel
+**Product Manager · AI Platform & Fintech**
+Bengaluru, India · +91 8758221221 · bhautikpatel0015@gmail.com · linkedin.com/in/bhautikpatel0015 · www.bhautikpatel.com · github.com/Bhautik1508
+
+> Mirrors `bhautik-portfolio/public/resume.pdf` (Resume_2026_v2, Aug 2026). Update both together.
 
 ---
 
 ## Summary
 
-Product Manager with 4+ years in credit risk at Standard Chartered Bank and an MBA from IIT Delhi. I ship enterprise data products inside regulated environments and 0‑to‑1 AI tools for consumers — turning regulatory and customer pain into measurable business outcomes. Specialised in: credit risk reporting, Basel III/IV & IFRS 9 workflows, LLM-powered automation, and product discovery for ambiguous problem spaces.
+Product manager with **5+ years building AI and fintech products end to end**. Owns core platform capabilities on an enterprise agentic AI platform, spanning agent observability and governance, the semantic layer, and a platform-wide UX rebuild. Earlier, ran risk and regulatory reporting products across **12 markets** at Standard Chartered and shipped **two AI products from zero to launch**. MBA, IIT Delhi. Looking to build AI-native platform or fintech products at scale.
 
 ---
 
 ## Experience
 
-### Standard Chartered Bank — Product Manager, Credit Risk
-*Bengaluru · Sep 2022 – Present*
+### Brillio — AI Product Owner, ADAM (Enterprise Agentic AI Platform)
+*Bengaluru · Jul 2026 – Present*
 
-- **Cut country/cluster risk appetite reporting from 3 days to 4 hours** by replacing manual SQL+Excel pipelines with a python-pptx + pandas + Claude API automation across 12 markets. Freed analysts from slide production for actual risk interpretation.
-- **Owned a unified master tranche table** as the single source for downstream credit risk reporting — joining transactions, limits, mitigants and client reference data at the right grain so any geography/portfolio cut became a query, not a parallel Excel universe.
-- Led 4 credit risk programmes end-to-end at **100% regulatory compliance**, governing **20+ upstream data feeds at 90%+ data quality**.
-- Designed a 5-component reporting framework (measures, common portfolio identifier, common templates, country/cluster cuts, self-service insight) that standardised the risk vocabulary across countries before automating the pipes.
-- Promoted within 2 years for delivery impact.
+- Built the platform's **Control Tower**, a single observability and governance surface monitoring every deployed agent across **7 dimensions** including cost, model, prompt and security — cutting agent incident triage **from hours to under 30 minutes** and giving platform owners **per-agent cost attribution for the first time**.
+- Shipped **Semantic Fabric**, the platform's governed ontology and knowledge graph layer that supplies trusted business context to agents, lifting retrieval accuracy **~25%** in internal evals and cutting onboarding effort for new agent use cases **~30%**.
+- Led the **end-to-end reimagining of the platform UX**, replacing capabilities scattered across the product with a single coherent structure: defined a new platform-wide taxonomy and rebuilt user journeys for **7 modules against 5 personas**, reducing task-completion time **~35%** and clicks-to-first-agent-run **by half** in usability testing.
+- Drove an enterprise pursuit for a **large US commercial bank** end to end: ran client working sessions, built the capability-to-ROI narrative, and directed engineering on demos for organization-wide vulnerability fix ranking and an agentic development lifecycle (ADLC) — contributing to an **$800K win**.
+- Redesigned **commercial banking onboarding** as an agentic to-be flow with **human-in-the-loop gates at each control point**, compressing a 3–7 day multi-step process to **2–3 days** with no loss of governance coverage; extended the same pattern to lending, cards and payments as proof-of-concept workflows.
+
+### Standard Chartered Bank — Product Manager, Credit Risk
+*Bengaluru · Sep 2022 – Jun 2026*
+
+- Led a **three-phase risk reporting platform serving 12 markets and 5+ business units**: governed ingestion from **20+ upstream systems**, a unified master table as single source of truth, and **LLM-drafted commentary with hallucination guardrails** — replacing manual SQL and Excel pipelines to cut risk appetite reporting **from 3 days to 4 hours** and free **~15 analyst-hours per cycle**.
+- Designed **self-service dashboards** for Nostro, Risk Appetite and Large Exposure used by **50+ risk analysts across 20+ markets**, cutting ad-hoc data requests **~40%**.
+- Owned a **data lake initiative with end-to-end lineage tracking**, lifting data completeness from **~70% to 92%** across **20+ feeds**; shipped **30+ quarterly releases** against fixed engineering capacity and regulatory deadlines.
 
 ### Prodapt Solutions — Presales Consultant
 *Chennai · May 2021 – Aug 2022*
 
-- **Turned cold RFPs into $3M of new revenue** by rebuilding the response motion around customer pain rather than capability dumps.
-- **Lifted close rate by 20%** through tighter qualification and partner co-selling.
-- Drove **15% annual GTM growth** with sharper deal targeting and account planning.
+- Rebuilt the **RFP/RFI response playbook** around customer pain points for large technology clients, contributing to **$3M in new revenue**, a **20% lift in deal close rate**, and **15% annual revenue growth**.
 
 ### Addivity — Co-founder & Head of Product
-*Ahmedabad · Mar 2020 – Apr 2021*
+*Ahmedabad · Mar 2020 – Apr 2021* · [Pitch Deck](bhautik-portfolio/public/addivity-pitch-deck.pdf)
 
-- **Took an idea from blank PRD to launched MVP in 6 months**, leading an **80+ person cross-functional team** across product, sales, marketing and ops.
-- **Closed 65+ corporate partnerships** and onboarded **15+ industry experts**, validating the marketplace before exit.
+- Took an **EdTech marketplace from blank PRD to launched MVP in 6 months**, owning strategy, user flows, UI/UX and RICE prioritization — scaling to **240+ students** and **65+ corporate partnerships** before exit.
 
 ---
 
-## Selected Projects (Side Builds)
+## Projects
 
-### GiftSense — AI gifting engine *(0‑to‑1, Live)*
-0‑to‑1 PM build for a ₹6.25L Cr stressed market. Sized opportunity (TAM ₹1.65L Cr → SAM ₹24,750 Cr → SOM ₹247–495 Cr), ran 30-respondent survey + persona work, killed one of six hypotheses, RICE-scored three solution shapes (chosen at 80 vs. 32, 24), shipped a 5-layer LLM architecture. Built metric framework with North Star + L0/L1/L2 + guardrails. **Live:** giftsense-rust.vercel.app
+### StockSage AI — Equity Research
+**Live:** agentic-workflow-analysis-for-india.vercel.app
 
-### StockSage AI — Multi-agent equity research *(Live)*
-Compressed institution-grade Indian equity research **from hours to under 30 seconds** using a 6-agent LangGraph orchestration (fundamental, technical, sentiment, peer, risk, synthesis). FastAPI + Next.js + Gemini/Groq cascade. **Live:** agentic-workflow-analysis-for-india.vercel.app
+Compressed institutional-grade equity analysis **from hours to ~30 seconds** for NSE + BSE coverage using a **6-agent LangGraph architecture** (fundamentals, technicals, sentiment, peer comparison, judge, synthesis) with explicit confidence scoring and a veto layer.
+**Stack:** LangGraph, FastAPI, Next.js, Groq, Gemini.
+
+### GiftSense — AI Gifting Engine
+**Live:** giftsense-rust.vercel.app · [Presentation](bhautik-portfolio/public/giftsense-presentation.pdf)
+
+Built an AI gifting engine using **multi-signal profiling** on India's **₹6.25L Cr (~$75Bn)** gifting market. Intent signals from WhatsApp chat history extraction improved recommendation relevance in user testing **(n=30)** and became the core differentiator vs. Amazon and IGP.
+**Stack:** Next.js 14, TypeScript, Gemini 2.5 Flash.
 
 ---
 
 ## Education
 
-**MBA — Indian Institute of Technology, Delhi (DMS)** · 2019 – 2021
-**B.E. — LDRP-ITR, Gandhinagar** · 2014 – 2018
+**IIT Delhi, New Delhi** — MBA, Product Management · 2019 – 2021
+**LDRP-ITR, Gandhinagar** — Bachelor of Engineering · 2014 – 2018
 
 ---
 
-## Capabilities
+## Skills
 
-**Product:** Roadmaps & PRDs · RICE / North Star metrics · User research & surveys · Stakeholder management · 0‑to‑1 and scale-up GTM · AI/LLM product design
+**Product Management:** Product Strategy · Roadmapping · Prioritization · PRDs · User Research · Discovery · A/B Testing · Product Design · Go-to-Market · Stakeholder Management · Competitive Analysis · Agile · Scrum
 
-**Fintech domain:** Credit risk & risk appetite · Basel III/IV · IFRS 9 · Regulatory reporting · Hadoop data lake & lineage · Model and data quality controls · Audit & compliance evidencing
+**AI / LLM:** Agentic AI · Multi-Agent Systems · LLM Product Design · AI Observability & Governance · RAG · Knowledge Graphs / Ontology · Prompt Engineering · Evals · Human-in-the-Loop Design · LangGraph
 
-**Data & analytics:** SQL · Python (pandas) · Tableau · KPI design & A/B testing · Reconciliation & data QA · python-pptx · Claude / Gemini API · LangGraph · Prompt engineering
+**Fintech Domain:** Payments · Lending · Digital Onboarding · KYC/AML · Credit Risk · Regulatory Reporting · Basel III / IV · IFRS 9 · Compliance · Data Quality · Data Lineage
+
+**Data & Tools:** SQL · Python · Figma · Tableau · JIRA · Confluence · Hadoop
 
 ---
 
 ## What I'm looking for
 
-A Product Manager role at a top fintech building data, risk or AI-native products — where deep domain knowledge, hands-on craft and clear product judgement compound.
+Building **AI-native platform or fintech products at scale** — where deep domain knowledge, hands-on craft and clear product judgement compound.
+
+---
+
+## Site-only detail (not on the PDF resume)
+
+Carried on www.bhautikpatel.com by decision, and used as source material for the case study pages. Not asserted on the PDF, so keep the distinction in mind when interviewing.
+
+**Brillio job title — site and PDF differ**
+- The site says **AI Product Manager, ADAM**; the PDF says **AI Product Owner, ADAM**. Deliberate (PM reads better to recruiters and matches the search term), but worth reconciling — either update the PDF or expect the question.
+
+**Standard Chartered**
+- **100% regulatory compliance** across 4 credit risk programmes; 20+ upstream feeds held at 90%+ data quality.
+- **Promoted within 2 years** for delivery impact.
+- **Unified master tranche table** — joins transactions, limits, mitigants and client reference data at tranche grain, so any geography/portfolio cut is a query rather than a parallel Excel universe.
+- **5-component reporting framework** that standardised risk vocabulary across countries before automating the pipes: (1) measures, metrics & dimensions, (2) common portfolio identifier, (3) common template for portfolio/segment/industry, (4) common template for country/cluster, (5) self-service data insight.
+- Commentary drafting ran on the **Claude API**; python-pptx + pandas produced the packs.
+
+**Addivity**
+- Led an **80+ person cross-functional team** across product, sales, marketing and ops; onboarded **15+ industry experts**.
+
+**GiftSense**
+- Sized the opportunity TAM ₹1.65L Cr → SAM ₹24,750 Cr → SOM ₹247–495 Cr; killed one of six hypotheses; RICE-scored three solution shapes (chosen at **80** vs. 32 and 24); shipped a 5-layer LLM architecture with a North Star + L0/L1/L2 metric framework and guardrails.
+
+**ChatGPT Voice** (portfolio case study, no resume line)
+- Growth PM exercise on converting India's **81% "tried-once"** voice users into regular adopters (**26%** use regularly) in a $1B market growing at 35.7% CAGR. PRD + Figma prototype.
